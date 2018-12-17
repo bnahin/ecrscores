@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+/** Login */
+Route::get('/login-google', 'GoogleAuthController@redirect')->name('login');
+Route::get('/oauth-callback', 'GoogleAuthController@handle')->name('oauth-callback');
+
+/** Logout */
+Route::get('/logout', 'SessionController@logout')->name('logout');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/', function () {
+        return view('home');
+    })->name('home');
 });
