@@ -39,6 +39,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $google_id
+ * @property string $first_name
+ * @property string $last_name
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereGoogleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
+ * @property int $is_admin
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\PSAT[] $psatStudents
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIsAdmin($value)
  */
 class User extends Authenticatable
 {
@@ -57,4 +66,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = ['remember_token'];
+
+    public function psatStudents() {
+        return $this->hasMany(PSAT::class, 'email', 'email');
+    }
 }

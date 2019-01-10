@@ -6,9 +6,13 @@
 
 namespace App\Common\Bnahin;
 
+use App\Imports\PSATImport;
 use GuzzleHttp\Client;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
@@ -78,15 +82,15 @@ class EcrchsServices
 
     /**
      * Parse CSV Results into JSON
-     * @return bool
+     * @return array
      */
-    public function parseResults(): bool
+    public function parseResults(): array
     {
-        $count = 0;
+        $hitArray = array();
 
         $years = Storage::directories();
         if (!$years) {
-            return false;
+            return $hitArray;
         }
 
         foreach ($years as $year) {
@@ -96,6 +100,8 @@ class EcrchsServices
                 continue;
             }
 
+            $hitArray[$year] = array();
+
             foreach ($teachers as $teacher) {
                 //Level 2 - Teachers
                 $teacherEmail = explode('/', $teacher)[1] ?? null; //Remove leading directory (year)
@@ -104,17 +110,40 @@ class EcrchsServices
                     continue;
                 }
 
+                if (!isset($hitArray[$year]['teachers'])) {
+                    $hitArray[$year]['teachers'] = 1;
+                } else {
+                    $hitArray[$year]['teachers']++;
+                }
+
                 foreach ($files as $file) {
                     //Level 3 - Excel Files
+                    $filename = explode('.', explode('/', $file)[2])[0];
 
-                    //TODO: Maatwebsite Laravel Excel Import
-                    //TODO: ^ Create import class, save to database or just collection??
+                    //Get grade from filename
+                    //Must be the first 1 or 2 charactersz
+                    preg_match('/^\d{1,2}/', $filename, $matches);
+                    if (empty($matches)) {
+                        continue;
+                    }
+                    $grade = $matches[0];
 
-                    $count++;
+                    if (str_contains($filename, 'PSAT')) {
+                        //PSAT Data
+                        Excel::import(new PSATImport($teacherEmail, $grade, $year), $file);
+                    } elseif (str_contains($filename, 'SBAC')) {
+                        //TODO: SBAC Data
+                    }
+
+                    if (!isset($hitArray[$year][$filename])) {
+                        $hitArray[$year][$filename] = 1;
+                    } else {
+                        $hitArray[$year][$filename]++;
+                    }
                 }
             }
         }
 
-        return $count > 0;
+        return $hitArray;
     }
 }

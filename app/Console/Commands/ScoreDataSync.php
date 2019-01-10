@@ -3,7 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Common\Bnahin\EcrchsServices;
+use App\PSAT;
+use App\SBAC;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Cache;
 
 class ScoreDataSync extends Command
 {
@@ -50,9 +53,20 @@ class ScoreDataSync extends Command
      */
     public function handle()
     {
+        Cache::put('datasync', true, 10);
+        PSAT::truncate();
+        SBAC::truncate();
+
         //for ($i = self::START; $i < substr(intval(date('Y')), 2); $i++) {
-          //  $this->line($this->ecrchs->firePython(self::START));
+        //  $this->line($this->ecrchs->firePython(self::START));
         //}
-        $this->ecrchs->parseResults();
+        $result = $this->ecrchs->parseResults();
+
+        dd($result);
+        //TODO: make result symfony table
+
+        Cache::forget('datasync');
+
+        return true;
     }
 }
