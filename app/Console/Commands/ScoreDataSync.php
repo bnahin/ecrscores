@@ -53,7 +53,7 @@ class ScoreDataSync extends Command
      */
     public function handle()
     {
-        Cache::put('datasync', true, 10);
+        Cache::put('datasync', true, 60);
         PSAT::truncate();
         SBAC::truncate();
 
