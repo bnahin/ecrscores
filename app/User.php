@@ -70,4 +70,8 @@ class User extends Authenticatable
     public function psatStudents() {
         return $this->hasMany(PSAT::class, 'email', 'email');
     }
+
+    public function sbacStudents() {
+        return $this->hasMany(SBAC::class, 'email', 'email');
+    }
 }

@@ -20,9 +20,9 @@ class CreatePsatDataTable extends Migration
             $table->string('lname');
             $table->bigInteger('ssid');
             $table->string('course');
-            $table->string('readwrite'); //Possible NS
-            $table->string('math'); //Possible NS
-            $table->string('total'); //Possible NS
+            $table->unsignedInteger('readwrite')->nullable(); //Possible NS
+            $table->unsignedInteger('math')->nullable(); //Possible NS
+            $table->unsignedInteger('total')->nullable(); //Possible NS
             $table->integer('grade'); //From filename
             $table->char('year'); //Ex. 19-20
             $table->timestamps();

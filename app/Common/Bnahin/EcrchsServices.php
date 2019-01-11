@@ -7,6 +7,7 @@
 namespace App\Common\Bnahin;
 
 use App\Imports\PSATImport;
+use App\Imports\SBACImport;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\App;
@@ -100,8 +101,8 @@ class EcrchsServices
                 continue;
             }
 
-            $hitArray[$year] = array();
-
+            $numTeachers = 0;
+            $fileHits = array();
             foreach ($teachers as $teacher) {
                 //Level 2 - Teachers
                 $teacherEmail = explode('/', $teacher)[1] ?? null; //Remove leading directory (year)
@@ -110,12 +111,7 @@ class EcrchsServices
                     continue;
                 }
 
-                if (!isset($hitArray[$year]['teachers'])) {
-                    $hitArray[$year]['teachers'] = 1;
-                } else {
-                    $hitArray[$year]['teachers']++;
-                }
-
+                $numTeachers++;
                 foreach ($files as $file) {
                     //Level 3 - Excel Files
                     $filename = explode('.', explode('/', $file)[2])[0];
@@ -132,16 +128,20 @@ class EcrchsServices
                         //PSAT Data
                         Excel::import(new PSATImport($teacherEmail, $grade, $year), $file);
                     } elseif (str_contains($filename, 'SBAC')) {
-                        //TODO: SBAC Data
+                        //SBAC Data
+                        Excel::import(new SBACImport($teacherEmail, $grade, $year), $file);
                     }
 
-                    if (!isset($hitArray[$year][$filename])) {
-                        $hitArray[$year][$filename] = 1;
+                    if (!isset($fileHits[$filename])) {
+                        $fileHits[$filename] = 1;
                     } else {
-                        $hitArray[$year][$filename]++;
+                        $fileHits[$filename]++;
                     }
                 }
             }
+
+            $hitArray[$year]['teachers'] = $numTeachers;
+            $hitArray[$year]['files'] = $fileHits;
         }
 
         return $hitArray;

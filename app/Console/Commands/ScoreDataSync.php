@@ -55,11 +55,12 @@ class ScoreDataSync extends Command
     {
         Cache::put('datasync', true, 10);
         PSAT::truncate();
-        SBAC::truncate();
+        //SBAC::truncate();
 
         //for ($i = self::START; $i < substr(intval(date('Y')), 2); $i++) {
         //  $this->line($this->ecrchs->firePython(self::START));
         //}
+        $this->info('Importing score data. This will take some time...');
         $result = $this->ecrchs->parseResults();
 
         dd($result);
