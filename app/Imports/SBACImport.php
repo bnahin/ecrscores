@@ -16,7 +16,7 @@ class SBACImport implements ToModel
      *
      * @param string $email Teacher email
      * @param int    $grade Student grade level
-     * @param string $year Year of student data
+     * @param string $year  Year of student data
      *
      */
     public function __construct(string $email, int $grade, string $year)
@@ -34,7 +34,7 @@ class SBACImport implements ToModel
      */
     public function model(array $row)
     {
-        if(!isset($row[0])) {
+        if (!isset($row[0])) {
             //Header row
             return null;
         }
@@ -45,7 +45,7 @@ class SBACImport implements ToModel
         $fname = $pieces[1] ?? "";
 
         //Add to database buffer
-        if($this->grade != 8) {
+        if ($this->grade != 8) {
             return new SBAC([
                 'teacher' => $this->email,
                 'fname'   => $fname,
@@ -68,8 +68,7 @@ class SBACImport implements ToModel
                 'grade' => $this->grade,
                 'year'  => $this->year
             ]);
-        }
-        else {
+        } else {
             return new SBAC([
                 'teacher' => $this->email,
                 'fname'   => $fname,
@@ -97,19 +96,36 @@ class SBACImport implements ToModel
 
     /**
      * Create integer representation on level text
+     *
      * @param string|null $level Level text to parse
      *
      * @return int|string
      */
-    private static function parseLevel($level) {
-        switch($level) {
-            case 'Standard Not Met.' : $return = 0; break;
-            case 'Near Standard.' : $return = 1; break;
-            case 'Standard Met.' : $return = 2; break;
-            case 'Standard Exceeded.' : $return = 3; break;
-            default: $return = null; break;
+    private static function parseLevel($level)
+    {
+        if (intval($level)) {
+            //Is a number
+            return $level;
+        }
+        switch ($level) {
+            case 'Standard Not Met.' :
+                $return = 0;
+                break;
+            case 'Near Standard.' :
+                $return = 1;
+                break;
+            case 'Standard Met.' :
+                $return = 2;
+                break;
+            case 'Standard Exceeded.' :
+                $return = 3;
+                break;
+            default:
+                //NS
+                $return = null;
+                break;
 
-            //TODO: They EITHER have a scale or level??
+            //TODO: They EITHER have an ela/math scale or level??
             //DD() to debug
         }
 

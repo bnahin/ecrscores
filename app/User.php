@@ -48,6 +48,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property int $is_admin
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\PSAT[] $psatStudents
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIsAdmin($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\SBAC[] $sbacStudents
  */
 class User extends Authenticatable
 {
