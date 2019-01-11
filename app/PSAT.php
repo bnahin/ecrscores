@@ -36,6 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\PSAT whereTotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\PSAT whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $year
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\PSAT whereYear($value)
  */
 class PSAT extends Model
 {

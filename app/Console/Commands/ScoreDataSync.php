@@ -55,7 +55,7 @@ class ScoreDataSync extends Command
     {
         Cache::put('datasync', true, 10);
         PSAT::truncate();
-        //SBAC::truncate();
+        SBAC::truncate();
 
         //for ($i = self::START; $i < substr(intval(date('Y')), 2); $i++) {
         //  $this->line($this->ecrchs->firePython(self::START));
@@ -67,6 +67,7 @@ class ScoreDataSync extends Command
         //TODO: make result symfony table
 
         Cache::forget('datasync');
+        $this->info('Done!');
 
         return true;
     }
