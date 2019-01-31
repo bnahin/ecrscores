@@ -34,6 +34,11 @@ class GoogleAuthController extends Controller
      */
     public function handle()
     {
+        if(app()->isLocal()) {
+            Auth::login(User::where('email', 's.bahri@ecrchs.net')->first());
+
+            return redirect()->route('home');
+        }
         $apiUser = $this->api->getUser();
 
         $user = User::where('email', $apiUser->email);

@@ -2,30 +2,31 @@
 
 namespace App;
 
+use App\Helpers\SBACDataHelper;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\SBAC
  *
- * @property int $id
- * @property \App\User $teacher
- * @property string $fname
- * @property string $lname
- * @property int $ssid
- * @property string $course
- * @property int|null $math_scale
- * @property int|null $math_level
- * @property int|null $reasoning
- * @property int|null $concepts
- * @property int|null $modeling
- * @property int|null $ela_scale
- * @property int|null $ela_level
- * @property int|null $inquiry
- * @property int|null $listening
- * @property int|null $reading
- * @property int|null $writing
- * @property int $grade
- * @property string $year
+ * @property int                             $id
+ * @property \App\User                       $teacher
+ * @property string                          $fname
+ * @property string                          $lname
+ * @property int                             $ssid
+ * @property string                          $course
+ * @property int|null                        $math_scale
+ * @property int|null                        $math_level
+ * @property int|null                        $reasoning
+ * @property int|null                        $concepts
+ * @property int|null                        $modeling
+ * @property int|null                        $ela_scale
+ * @property int|null                        $ela_level
+ * @property int|null                        $inquiry
+ * @property int|null                        $listening
+ * @property int|null                        $reading
+ * @property int|null                        $writing
+ * @property int                             $grade
+ * @property string                          $year
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\SBAC newModelQuery()
@@ -74,7 +75,65 @@ class SBAC extends Model
      */
     protected $guarded = [];
 
-    public function teacher() {
+    public function teacher()
+    {
         return $this->belongsTo(User::class, 'email', 'email');
     }
+
+
+    public function getFirstNameAttribute()
+    {
+        return ucwords($this->fname);
+    }
+
+    public function getLastNameAttribute()
+    {
+        return ucwords($this->lname);
+    }
+
+    public function getMathLevelAttribute($value)
+    {
+        return SBACDataHelper::getLevelFromInt($value ?? -1);
+    }
+
+    public function getReasoningAttribute($value)
+    {
+        return SBACDataHelper::getLevelFromInt($value ?? -1);
+    }
+
+    public function getConceptsAttribute($value)
+    {
+        return SBACDataHelper::getLevelFromInt($value ?? -1);
+    }
+
+    public function getModelingAttribute($value)
+    {
+        return SBACDataHelper::getLevelFromInt($value ?? -1);
+    }
+
+    public function getElaLevelAttribute($value)
+    {
+        return SBACDataHelper::getLevelFromInt($value ?? -1);
+    }
+
+    public function getInquiryAttribute($value)
+    {
+        return SBACDataHelper::getLevelFromInt($value ?? -1);
+    }
+
+    public function getListeningAttribute($value)
+    {
+        return SBACDataHelper::getLevelFromInt($value ?? -1);
+    }
+
+    public function getReadingAttribute($value)
+    {
+        return SBACDataHelper::getLevelFromInt($value ?? -1);
+    }
+
+    public function getWritingAttribute($value)
+    {
+        return SBACDataHelper::getLevelFromInt($value ?? -1);
+    }
+
 }

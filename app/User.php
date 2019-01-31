@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * App\User
@@ -39,13 +40,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property string $google_id
- * @property string $first_name
- * @property string $last_name
+ * @property string                                                    $google_id
+ * @property string                                                    $first_name
+ * @property string                                                    $last_name
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereGoogleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
- * @property int $is_admin
+ * @property int                                                       $is_admin
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\PSAT[] $psatStudents
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIsAdmin($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\SBAC[] $sbacStudents
@@ -68,11 +69,47 @@ class User extends Authenticatable
      */
     protected $hidden = ['remember_token'];
 
-    public function psatStudents() {
-        return $this->hasMany(PSAT::class, 'email', 'email');
+    public function psatStudents()
+    {
+        return $this->hasMany(PSAT::class, 'teacher', 'email');
     }
 
-    public function sbacStudents() {
-        return $this->hasMany(SBAC::class, 'email', 'email');
+    public function sbacStudents()
+    {
+        return $this->hasMany(SBAC::class, 'teacher', 'email');
+    }
+
+    /**
+     * Get combined collection of years that have data
+     * @return \Illuminate\Support\Collection
+     */
+    public function getYears()
+    {
+        $sbacYears = $this->sbacStudents()->groupBy('year')->pluck('year');
+        $psatYears = $this->psatStudents()->groupBy('year')->pluck('year');
+
+        $years = $sbacYears->flip()->merge($psatYears->flip())->flip(); //Combine collections
+
+        return $years;
+    }
+
+    /**
+     * Get combined collection of courses that have data
+     * @param string $year
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getCourses(string $year)
+    {
+        $user = app()->isLocal()
+            ? static::where('email', 's.bahri@ecrchs.net')->first() : $this;
+        $sbacCourses = $user->sbacStudents()->where('year', $year)
+            ->groupBy('course')->pluck('course');
+        $psatCourses = $user->psatStudents()->where('year', $year)
+            ->groupBy('course')->pluck('course');
+
+        $courses = $sbacCourses->flip()->merge($psatCourses->flip())->flip(); //Combine collections
+
+        return $courses;
     }
 }

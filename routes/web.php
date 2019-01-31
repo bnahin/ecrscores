@@ -19,7 +19,6 @@ Route::get('/oauth-callback', 'GoogleAuthController@handle')->name('oauth-callba
 Route::get('/logout', 'SessionController@logout')->name('logout');
 
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/', function () {
-        return view('home');
-    })->name('home');
+    Route::get('/', 'ViewController@index')->name('home');
+    Route::get('/view/{data}', 'ViewController@course')->name('view-course');
 });

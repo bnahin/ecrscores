@@ -62,4 +62,12 @@ class PSAT extends Model
     public function teacher() {
         return $this->belongsTo(User::class, 'email', 'email');
     }
+
+    public function getFirstNameAttribute() {
+        return ucwords($this->fname);
+    }
+
+    public function getLastNameAttribute() {
+        return ucwords($this->lname);
+    }
 }

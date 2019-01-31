@@ -20,42 +20,25 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">NAVIGATION</li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-calendar"></i> <span>2016-2017</span>
-                    <span class="pull-right-container">
+            <li class="active"><a href="/"><i class="fa fa-home"></i>Home</a></li>
+            @foreach(Auth::user()->getYears() as $year)
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-calendar"></i> <span>
+                        {{ \App\Helpers\Helper::getFullYearString($year) }}</span>
+                        <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
-                </a>
-                <ul class="treeview-menu">
-                    @for($i = 1; $i <= 5; $i++)
-                        <li><a href="#">Course {{ $i }}</a></li>
-                    @endfor
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-calendar"></i> <span>2017-2018</span>
-                    <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                </a>
-                <ul class="treeview-menu">
-                    @for($i = 1; $i <= 5; $i++)
-                        <li><a href="#">Course {{ $i }}</a></li>
-                    @endfor
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-calendar"></i> <span>2018-2019</span>
-                    <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-                </a>
-                <ul class="treeview-menu">
-                    @for($i = 1; $i <= 5; $i++)
-                        <li><a href="#">Course {{ $i }}</a></li>
-                    @endfor
-                </ul>
-            </li>
+                    </a>
+                    <ul class="treeview-menu">
+                        @foreach(Auth::user()->getCourses($year) as $course)
+                            <li><a href="/view/{{ \App\Helpers\Helper::base64url_encode("$year.$course") }}">
+                                    {{ $course }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endforeach
         </ul>
         <!-- /.sidebar-menu -->
     </section>
