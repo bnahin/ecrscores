@@ -11,12 +11,16 @@
 |
 */
 
+/** In Sync */
+Route::get('/errors/sync', function() {
+    return view('insync');
+})->name('in-sync');
 /** Login */
 Route::get('/login-google', 'GoogleAuthController@redirect')->name('login');
 Route::get('/oauth-callback', 'GoogleAuthController@handle')->name('oauth-callback');
 
 /** Logout */
-Route::get('/logout', 'SessionController@logout')->name('logout');
+Route::get('/logout', 'SessionController@logout')->name('logout')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'ViewController@index')->name('home');

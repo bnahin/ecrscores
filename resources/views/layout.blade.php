@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     @include('partials.header.meta')
-    <title>ECRCHS Student Scores</title>
+    <title>ECRCHS Student Scores | @yield('page-title', 'Home')</title>
 
     <!-- Styles -->
     @include('partials.header.styles')
@@ -20,6 +20,10 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
+            @if(\App\Helpers\Helper::inSync())
+                @include('insync')
+            @endif
+
             <h1>
                 @yield('page-title')
                 <small>@yield('page-description')</small>
@@ -29,6 +33,7 @@
 
         <!-- Main content -->
         <section class="content container-fluid">
+
             @yield('content')
         </section>
     </div>

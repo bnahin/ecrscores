@@ -1,5 +1,3 @@
-@import '../themes/bootstrap-yeti';
-
 /* * * * * * * * * * * * * * * * *
 *                                 *
 *     ECRCHS Student Scores CSS   *
@@ -11,4 +9,23 @@
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+/** Sync Page **/
+#sync-container {
+  background-color: white;
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 8px;
+  height: 30%;
+  vertical-align: middle;
+  -webkit-box-shadow: inset 0 0 9px 3px rgba(112,112,112,0.63);
+  -moz-box-shadow: inset 0 0 9px 3px rgba(112,112,112,0.63);
+  box-shadow: inset 0 0 9px 3px rgba(112,112,112,0.63);
+
+  #sync-icon {
+    font-size: 2.7em;
+  }
 }

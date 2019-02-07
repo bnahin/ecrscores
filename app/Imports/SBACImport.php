@@ -107,17 +107,17 @@ class SBACImport implements ToModel
             //Is a number
             return $level;
         }
-        switch ($level) {
-            case 'Standard Not Met.' :
+        switch (rtrim(preg_replace('/\./', '', $level))) {
+            case 'Standard Not Met' :
                 $return = 0;
                 break;
-            case 'Near Standard.' :
+            case 'Near Standard' :
                 $return = 1;
                 break;
-            case 'Standard Met.' :
+            case 'Standard Met' :
                 $return = 2;
                 break;
-            case 'Standard Exceeded.' :
+            case 'Standard Exceeded' :
                 $return = 3;
                 break;
             default:
