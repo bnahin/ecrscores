@@ -4,4 +4,57 @@
  * application frontend using useful Laravel and JavaScript libraries.
  */
 
-require('./bootstrap');
+require('./bootstrap')
+
+/** Static Table Popover **/
+/**
+ * If in 8th grade tab, view category info for 11th grade
+ * If in 11th grade tab, view category info for 8th grade
+ * Hover over icon
+ */
+
+/** Compare Tab **/
+$(function () {
+  $('.compare-select').val(null).trigger('change')
+  //TODO Custom Column Visibility
+  $('.static-table').DataTable()
+  $('.select2-course').select2({
+    templateSelection: course => course.element.dataset.label
+  }).on('select2:select', function (e) {
+    let data = e.params.data,
+        col  = data.element.dataset.col,
+        exam = $('#examselect-' + col).find(':selected').val()
+    if (exam.length) loadData(col)
+  })
+  $('.select2-exam').select2()
+    .on('select2:select', function (e) {
+      let data   = e.params.data,
+          col    = data.element.dataset.col,
+          course = $('#courseselect-' + col).find(':selected').val()
+      if (course.length) loadData(col)
+    })
+
+  function loadData (col) {
+    destroyTable(col);
+    console.log('Loading data to ' + col)
+
+    //Get selected values
+    let exam   = $('#examselect-' + col).find(':selected').val(),
+        course = $('#courseselect-' + col).find(':selected').val()
+    if (!exam.length || !course.length) return null
+
+    //Get type
+    let type  = exam.split('-')[0],
+        table = $('#' + type + '-compare-' + col)
+    console.log(type) //SBAC|PSAT|...
+
+    //Show and Initialize data table, with AJAX
+
+  }
+
+  function destroyTable(col) {
+    //Hide and destroy the table with data-col=col
+    let table = $('.compare-table[id$="compare-' + col + '"]');
+
+  }
+})

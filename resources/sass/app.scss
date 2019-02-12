@@ -21,11 +21,24 @@
   padding: 8px;
   height: 30%;
   vertical-align: middle;
-  -webkit-box-shadow: inset 0 0 9px 3px rgba(112,112,112,0.63);
-  -moz-box-shadow: inset 0 0 9px 3px rgba(112,112,112,0.63);
-  box-shadow: inset 0 0 9px 3px rgba(112,112,112,0.63);
+  -webkit-box-shadow: inset 0 0 9px 3px rgba(112, 112, 112, 0.63);
+  -moz-box-shadow: inset 0 0 9px 3px rgba(112, 112, 112, 0.63);
+  box-shadow: inset 0 0 9px 3px rgba(112, 112, 112, 0.63);
 
   #sync-icon {
     font-size: 2.7em;
   }
+}
+
+/** View Page **/
+
+#compare-container {
+  div.col-lg-6:first-child {
+    border-right: 2px solid #ccc;
+  }
+}
+
+.compare-table {
+  display: none;
+  margin-top: 5px;
 }
