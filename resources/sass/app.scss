@@ -36,9 +36,26 @@
   div.col-lg-6:first-child {
     border-right: 2px solid #ccc;
   }
+
+  .filter-box {
+    margin-top: 5px;
+    background-color: #f8f8f8;
+
+    h4 {
+      margin-top: 0;
+    }
+
+    label {
+      font-weight: initial;
+    }
+  }
 }
 
 .compare-table {
   display: none;
+  margin-top: 5px;
+}
+
+.table-responsive {
   margin-top: 5px;
 }

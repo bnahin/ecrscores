@@ -26,3 +26,5 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'ViewController@index')->name('home');
     Route::get('/view/{data}', 'ViewController@course')->name('view-course');
 });
+
+/** AJAX */

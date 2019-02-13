@@ -1,4 +1,4 @@
-window._ = require('lodash');
+window._ = require('lodash')
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -6,9 +6,9 @@ window._ = require('lodash');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+window.axios = require('axios')
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
@@ -16,12 +16,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * a simple convenience so we don't have to attach every token manually.
  */
 
-let token = document.head.querySelector('meta[name="csrf-token"]');
+let token = document.head.querySelector('meta[name="csrf-token"]')
 
 if (token) {
-    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content
 } else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token')
 }
 
 /**
@@ -43,12 +43,35 @@ if (token) {
 
 /** Custom Bootstrap **/
 $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
 })
 $(function () {
-    $('body').tooltip({
-        selector:'[data-toggle="tooltip"], [rel="tooltip"]'
-    });
+  $('body').tooltip({
+    selector: '[data-toggle="tooltip"], [rel="tooltip"]'
+  })
+
+  if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show')
+  // remember the hash in the URL without jumping
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    if (history.pushState) {
+      history.pushState(null, null, '#' + $(e.target).attr('href').substr(1))
+    } else {
+      location.hash = '#' + $(e.target).attr('href').substr(1)
+    }
+  })
 })
+
+//Matrix extension
+Array.matrix = function(numrows, numcols, initial) {
+  var arr = [];
+  for (var i = 0; i < numrows; ++i) {
+    var columns = [];
+    for (var j = 0; j < numcols; ++j) {
+      columns[j] = initial;
+    }
+    arr[i] = columns;
+  }
+  return arr;
+}

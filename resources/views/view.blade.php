@@ -20,13 +20,13 @@
         <div class="col-xs-12">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">SBAC 8</a></li>
-                    <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">SBAC 11</a></li>
-                    <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">PSAT 11</a></li>
-                    <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Compare</a></li>
+                    <li class="active"><a href="#sbac8" data-toggle="tab" aria-expanded="true">SBAC 8</a></li>
+                    <li class=""><a href="#sbac11" data-toggle="tab" aria-expanded="false">SBAC 11</a></li>
+                    <li class=""><a href="#psat11" data-toggle="tab" aria-expanded="false">PSAT 11</a></li>
+                    <li class=""><a href="#compare" data-toggle="tab" aria-expanded="false">Compare</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab_1">
+                    <div class="tab-pane active" id="sbac8">
 
                         <div class="box box-success">
                             <div class="box-header with-border">
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_2">
+                    <div class="tab-pane" id="sbac11">
                         <div class="box box-success">
                             <div class="box-header with-border">
                                 <h3 class="box-title">SBAC Grade 11</h3>
@@ -152,7 +152,7 @@
                         </div>
                     </div>
                     <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_3">
+                    <div class="tab-pane" id="psat11">
                         <div class="box box-success">
                             <div class="box-header with-border">
                                 <h3 class="box-title">PSAT Grade 12</h3>
@@ -186,7 +186,7 @@
                         </div>
                     </div>
                     <!-- /.tab-pane -->
-                    <div class="tab-pane" id="tab_4">
+                    <div class="tab-pane" id="compare">
                         <!--
                         SBAC 8 vs SBAC 11
                         Filters on both sides
@@ -250,6 +250,9 @@
                                                     </option>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div id="filter-box-1" style="display: none;">
+                                            @include('partials.filterbox')
                                         </div>
 
                                         <div class="table-responsive">
@@ -345,6 +348,10 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div id="filter-box-2" style="display: none;">
+                                            @include('partials.filterbox')
+                                        </div>
+
                                         <div class="table-responsive">
                                             <table id="sbac-compare-2"
                                                    class="table table-bordered table-striped compare-table">
