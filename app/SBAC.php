@@ -54,6 +54,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\SBAC whereWriting($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\SBAC whereYear($value)
  * @mixin \Eloquent
+ * @property-read mixed $first_name
+ * @property-read mixed $last_name
  */
 class SBAC extends Model
 {

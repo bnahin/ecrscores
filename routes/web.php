@@ -28,3 +28,4 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 /** AJAX */
+Route::post('/ajax/getTableData', 'AjaxController@getTableData');

@@ -263,10 +263,12 @@
                                                     <th>Last Name</th>
                                                     <th>First Name</th>
                                                     <th>Math Scale</th>
+                                                    <th>Math Level</th>
                                                     <th>Communicating and Reasoning</th>
                                                     <th>Concepts and Procedures</th>
                                                     <th>Problem Solving and Modeling</th>
                                                     <th>ELA Scale</th>
+                                                    <th>ELA Level</th>
                                                     <th>Inquiry</th>
                                                     <th>Listening</th>
                                                     <th>Reading</th>
@@ -360,10 +362,12 @@
                                                     <th>Last Name</th>
                                                     <th>First Name</th>
                                                     <th>Math Scale</th>
+                                                    <th>Math Level</th>
                                                     <th>Communicating and Reasoning</th>
                                                     <th>Concepts and Procedures</th>
                                                     <th>Problem Solving and Modeling</th>
                                                     <th>ELA Scale</th>
+                                                    <th>ELA Level</th>
                                                     <th>Inquiry</th>
                                                     <th>Listening</th>
                                                     <th>Reading</th>

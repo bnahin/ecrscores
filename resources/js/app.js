@@ -14,7 +14,23 @@ require('./bootstrap')
  */
 
 /** Compare Tab **/
+let CompareTableHelper = {
+  cellToColor: (header) => {
+    switch (header) {
+      case 'Standard Not Met':
+        return 'danger'
+      case 'Near Standard':
+        return 'warning'
+      case 'Standard Met':
+      case 'Standard Exceeded':
+        return 'success'
+      default:
+        return ''
+    }
+  }
+}
 $(function () {
+  let dataTable
   $('.compare-select').val(null).trigger('change')
   //TODO Custom Column Visibility
   $('.static-table').DataTable()
@@ -64,22 +80,26 @@ $(function () {
       filterBox.hide()
     } else {
       filterBox.show()
-      let i = 0
-      let checkboxes = filterBox.find('input:checked'),
-          numBoxes   = checkboxes.length,
-          columns    = Array.matrix(numBoxes - 1, 1, {})
+      let i = 2
+      let checkboxes = filterBox.find('input:checkbox'),
+          numBoxes   = checkboxes.length
+      columns = Array.matrix(numBoxes - 1, 1, {})
+      columns[0] = {name: 'fname', visible: true}
+      columns[1] = {name: 'lname', visible: true}
       checkboxes.each(function () {
-        columns[i++] = {name: $(this).val()}
+        columns[i++] = {
+          name   : $(this).val(),
+          visible: $(this).prop('checked')
+        }
       })
-      console.log(columns)
     }
-
-    table.show().DataTable({
-      serverSide: true,
-      processing: true,
-      responsive: true,
-      columns   : columns,
-      ajax      : {
+    dataTable = table.show().DataTable({
+      serverSide : true,
+      processing : true,
+      responsive : true,
+      columns    : columns,
+      rowCallback: (r, d) => compareTableColors(r, d, type),
+      ajax       : {
         type: 'POST',
         url : '/ajax/getTableData',
         data: {
@@ -88,7 +108,6 @@ $(function () {
         }
       }
     })
-
   }
 
   function destroyTable (col) {
@@ -97,5 +116,19 @@ $(function () {
     filterBox.hide()
     table.DataTable().destroy()
     table.hide()
+  }
+
+  function compareTableColors (row, data, type) {
+    if (type === 'psat') {
+      $('td:eq(4)', row).addClass('success')
+    } else {
+      $(row).find('td').each(function () {
+        let index = $(this).index(),
+            th    = $(dataTable.column(index).header())
+
+        $('td:eq(' + index + ')', row).addClass(CompareTableHelper.cellToColor($(this).text()))
+
+      })
+    }
   }
 })

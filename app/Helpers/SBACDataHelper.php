@@ -28,15 +28,15 @@ final class SBACDataHelper
     public static function getColorFromInt(int $level): string
     {
         switch ($level) {
-            case 0:
-                return "danger";
-            case 1:
-                return "warning";
-            case 2:
-            case 3:
-                return "success";
-            default:
-                return "info";
-        }
+        case 0:
+            return "danger";
+        case 1:
+            return "warning";
+        case 2:
+        case 3:
+            return "success";
+        default:
+            return "info";
+    }
     }
 }

@@ -4,94 +4,105 @@
         <div class="row filter-row">
             <div class="col-xs-4">
                 <div class="form-check">
+                    @php $id = abs(crc32( uniqid())) @endphp
                     <input class="form-check-input" type="checkbox"
                            value="math_scale"
-                           id="mathscale" checked>
-                    <label class="form-check-label" for="mathscale">
+                           id="mathscale-{{$id}}" checked>
+                    <label class="form-check-label" for="mathscale-{{$id}}">
                         Math Scale
                     </label>
                 </div>
                 <div class="form-check">
+                    @php $id = abs(crc32(uniqid())) @endphp
                     <input class="form-check-input" type="checkbox"
                            value="math_level"
-                           id="mathlevel" checked>
-                    <label class="form-check-label" for="mathlevel">
+                           id="mathlevel-{{$id}}" checked>
+                    <label class="form-check-label" for="mathlevel-{{$id}}">
                         Math Level
                     </label>
                 </div>
                 <div class="form-check">
+                    @php $id = abs(crc32(uniqid())) @endphp
                     <input class="form-check-input" type="checkbox"
                            value="reasoning"
-                           id="reasoning">
-                    <label class="form-check-label" for="reasoning" rel="tooltip" title="Communicating and Reasoning">
+                           id="reasoning-{{$id}}">
+                    <label class="form-check-label" for="reasoning-{{$id}}" rel="tooltip"
+                           title="Communicating and Reasoning">
                         Reasoning
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox"
                            value="concepts"
-                           id="concepts">
-                    <label class="form-check-label" for="concepts">
+                           id="concepts-{{$id}}">
+                    <label class="form-check-label" for="concepts-{{$id}}">
                         Concepts/Procedures
                     </label>
                 </div>
             </div>
             <div class="col-xs-4">
                 <div class="form-check">
+                    @php $id = abs(crc32(uniqid())) @endphp
                     <input class="form-check-input" type="checkbox"
                            value="modeling"
-                           id="modeling">
-                    <label class="form-check-label" for="modeling" rel="tooltip" title="Problem Solving and Modeling">
+                           id="modeling-{{$id}}">
+                    <label class="form-check-label" for="modeling-{{$id}}" rel="tooltip" title="Problem Solving and Modeling">
                         Problem Solving
                     </label>
                 </div>
                 <div class="form-check">
+                    @php $id = abs(crc32(uniqid())) @endphp
                     <input class="form-check-input" type="checkbox"
                            value="ela_scale"
-                           id="elascale">
-                    <label class="form-check-label" for="elascale" checked>
+                           id="elascale-{{$id}}" checked>
+                    <label class="form-check-label" for="elascale-{{$id}}">
                         ELA Scale
                     </label>
                 </div>
                 <div class="form-check">
+                    @php $id = abs(crc32(uniqid())) @endphp
                     <input class="form-check-input" type="checkbox"
                            value="ela_level"
-                           id="elalevel">
-                    <label class="form-check-label" for="elalevel" checked>
+                           id="elalevel-{{$id}}" checked>
+                    <label class="form-check-label" for="elalevel-{{$id}}">
                         ELA Level
                     </label>
                 </div>
                 <div class="form-check">
+                    @php $id = abs(crc32(uniqid())) @endphp
                     <input class="form-check-input" type="checkbox"
                            value="inquiry"
-                           id="inquiry">
-                    <label class="form-check-label" for="inquiry">
+                           id="inquiry-{{$id}}">
+                    <label class="form-check-label" for="inquiry-{{$id}}">
                         Inquiry
                     </label>
                 </div>
             </div>
             <div class="col-xs-4">
+                @php $id = abs(crc32(uniqid())) @endphp
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox"
                            value="listening"
-                           id="listening">
-                    <label class="form-check-label" for="listening">
+                           id="listening-{{$id}}">
+                    <label class="form-check-label" for="listening-{{$id}}">
                         Listening
                     </label>
                 </div>
                 <div class="form-check">
+                    @php $id = abs(crc32(uniqid())) @endphp
                     <input class="form-check-input" type="checkbox"
                            value="reading"
-                           id="reading">
-                    <label class="form-check-label" for="reading">
+                           id="reading-{{$id}}">
+                    <label class="form-check-label" for="reading-{{$id}}">
                         Reading
                     </label>
                 </div>
                 <div class="form-check">
+                    @php $id = abs(crc32(uniqid())) @endphp
                     <input class="form-check-input" type="checkbox"
                            value="writing"
-                           id="writing">
-                    <label class="form-check-label" for="writing">
+                           id="writing-{{$id}}">
+                    <label class="form-check-label" for="writing-{{$id}}">
                         Writing
                     </label>
                 </div>

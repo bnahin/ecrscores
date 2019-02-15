@@ -38,6 +38,8 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property string $year
  * @method static \Illuminate\Database\Eloquent\Builder|\App\PSAT whereYear($value)
+ * @property-read mixed $first_name
+ * @property-read mixed $last_name
  */
 class PSAT extends Model
 {
