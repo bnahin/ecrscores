@@ -18,7 +18,8 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Average PSAT Total</span>
-                    <span class="info-box-number">1660</span>
+                    <span
+                        class="info-box-number">{!! \App\Helpers\PSATHelper::calculateAverageTotal() !!}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -26,11 +27,12 @@
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-book"></i></span>
+                <span class="info-box-icon bg-aqua"><i class="fa fa-calculator"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Average SBAC Math</span>
-                    <span class="info-box-number">2550</span>
+                    <span
+                        class="info-box-number">{!! \App\Helpers\SBACDataHelper::calculateAverageMath() !!}</span>
 
                 </div>
                 <!-- /.info-box-content -->
@@ -43,11 +45,12 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-pencil-square"></i></span>
+                <span class="info-box-icon bg-green"><i class="fa fa-book"></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Average SBAC ELA</span>
-                    <span class="info-box-number">2550</span>
+                    <span
+                        class="info-box-number">{!! \App\Helpers\SBACDataHelper::calculateAverageEla() !!}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -60,7 +63,7 @@
 
                 <div class="info-box-content">
                     <span class="info-box-text">Students</span>
-                    <span class="info-box-number">10,564</span>
+                    <span class="info-box-number">{{ number_format(\App\Helpers\AuthHelper::countStudents()) }}</span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

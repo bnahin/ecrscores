@@ -7,6 +7,8 @@
 namespace App\Helpers;
 
 
+use App\PSAT;
+use App\SBAC;
 use Illuminate\Support\Facades\Auth;
 
 final class SBACDataHelper
@@ -85,5 +87,35 @@ final class SBACDataHelper
         }
 
         return $content;
+    }
+
+    /** Homepage */
+
+    /**
+     * @return string
+     */
+    public static function calculateAverageEla(): string
+    {
+        $data = Auth::user()->sbacStudents()
+            ->where('year', PSAT::max('year'));
+        if (!$data->exists()) {
+            return "<em>N/A</em>";
+        }
+
+        return number_format($data->pluck('ela_scale')->avg());
+    }
+
+    /**
+     * @return string
+     */
+    public static function calculateAverageMath(): string
+    {
+        $data =  Auth::user()->sbacStudents()
+            ->where('year', PSAT::max('year'));
+        if (!$data->exists()) {
+            return "<em>N/A</em>";
+        }
+
+        return number_format($data->pluck('math_scale')->avg());
     }
 }

@@ -50,7 +50,7 @@ use Illuminate\Support\Facades\Auth;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\PSAT[] $psatStudents
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIsAdmin($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\SBAC[] $sbacStudents
- * @property-read mixed $full_name
+ * @property-read mixed                                                $full_name
  */
 class User extends Authenticatable
 {
@@ -120,15 +120,27 @@ class User extends Authenticatable
      */
     public function getCourses(string $year)
     {
-        $user = app()->isLocal()
-            ? static::where('email', 's.bahri@ecrchs.net')->first() : $this;
-        $sbacCourses = $user->sbacStudents()->where('year', $year)
+        $sbacCourses = $this->sbacStudents()->where('year', $year)
             ->groupBy('course')->pluck('course');
-        $psatCourses = $user->psatStudents()->where('year', $year)
+        $psatCourses = $this->psatStudents()->where('year', $year)
             ->groupBy('course')->pluck('course');
 
         $courses = $sbacCourses->flip()->merge($psatCourses->flip())->flip(); //Combine collections
 
         return $courses;
+    }
+
+    /**
+     * Get student count.
+     * @return int
+     */
+    public function getStudents(): int
+    {
+        $sbacStudents = $this->sbacStudents()->groupBy('ssid')->pluck('ssid');
+        $psatStudents = $this->psatStudents()->groupBy('ssid')->pluck('ssid');
+
+        $students = $sbacStudents->flip()->merge($psatStudents->flip())->flip(); //Combine collections
+
+        return $students->count();
     }
 }

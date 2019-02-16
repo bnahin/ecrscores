@@ -91,4 +91,18 @@ final class PSATHelper
         return $percent;
 
     }
+
+    /**
+     * @return string
+     */
+    public static function calculateAverageTotal(): string
+    {
+        $data = Auth::user()->psatStudents()
+            ->where('year', PSAT::max('year'));
+        if (!$data->exists()) {
+            return "<em>N/A</em>";
+        }
+
+        return number_format($data->pluck('total')->avg());
+    }
 }
