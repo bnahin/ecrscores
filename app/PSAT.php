@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\PSAT
  *
- * @property int $id
- * @property \App\User $teacher
- * @property string $fname
- * @property string $lname
- * @property int $ssid
- * @property string $course
- * @property string $readwrite
- * @property string $math
- * @property string $total
- * @property int $grade
+ * @property int                             $id
+ * @property \App\User                       $teacher
+ * @property string                          $fname
+ * @property string                          $lname
+ * @property int                             $ssid
+ * @property string                          $course
+ * @property string                          $readwrite
+ * @property string                          $math
+ * @property string                          $total
+ * @property int                             $grade
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\PSAT newModelQuery()
@@ -36,10 +36,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\PSAT whereTotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\PSAT whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property string $year
+ * @property string                          $year
  * @method static \Illuminate\Database\Eloquent\Builder|\App\PSAT whereYear($value)
- * @property-read mixed $first_name
- * @property-read mixed $last_name
+ * @property-read mixed                      $first_name
+ * @property-read mixed                      $last_name
  */
 class PSAT extends Model
 {
@@ -61,15 +61,23 @@ class PSAT extends Model
      */
     protected $guarded = [];
 
-    public function teacher() {
+    public function teacher()
+    {
         return $this->belongsTo(User::class, 'email', 'email');
     }
 
-    public function getFirstNameAttribute() {
+    public function percentiles()
+    {
+        return $this->hasMany(Percentile::class);
+    }
+
+    public function getFirstNameAttribute()
+    {
         return ucwords($this->fname);
     }
 
-    public function getLastNameAttribute() {
+    public function getLastNameAttribute()
+    {
         return ucwords($this->lname);
     }
 }
