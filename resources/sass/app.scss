@@ -11,6 +11,14 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.pull-left .img-circle {
+  width: 160px !important;
+}
+
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header > img {
+  height: 105px;
+}
+
 /** Sync Page **/
 #sync-container {
   background-color: white;

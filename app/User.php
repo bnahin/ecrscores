@@ -79,6 +79,11 @@ class User extends Authenticatable
         return $this->hasMany(SBAC::class, 'teacher', 'email');
     }
 
+    public function getFullNameAttribute()
+    {
+        return ucwords("{$this->first_name} {$this->last_name}");
+    }
+
     /**
      * Get combined collection of years that have data
      * @return \Illuminate\Support\Collection
@@ -95,6 +100,7 @@ class User extends Authenticatable
 
     /**
      * Get combined collection of courses that have data
+     *
      * @param string $year
      *
      * @return \Illuminate\Support\Collection
