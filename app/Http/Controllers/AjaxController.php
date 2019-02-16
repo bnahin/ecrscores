@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\CourseHelper;
 use App\Helpers\Helper;
+use App\Helpers\SBACDataHelper;
 use App\PSAT;
 use App\SBAC;
 use Freshbitsweb\Laratables\Laratables;
@@ -53,5 +54,19 @@ class AjaxController extends Controller
 
                 return $selections;
             });
+    }
+
+    public function getCellData(Request $request)
+    {
+        $request->validate([
+            'grade'  => 'required',
+            'ssid'   => 'required',
+            'fields' => 'required'
+        ]);
+        $grade = $request->grade;
+        $ssid = $request->ssid;
+        $fields = $request->fields;
+
+        return SBACDataHelper::getCellData($request->grade, $request->ssid, $request->fields);
     }
 }

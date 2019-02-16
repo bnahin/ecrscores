@@ -56,9 +56,12 @@ $(function () {
     //did not click a popover toggle or popover
     if ($(e.target).data('toggle') !== 'popover'
       && $(e.target).parents('.popover.in').length === 0) {
-      $('[data-toggle="popover"]').popover('hide')
+      $('[data-toggle="popover"], td').popover('hide')
     }
-  })
+  }).on('keydown', function (e) {
+      //Escape key, dismiss all popovers
+      if (e.key == 'Escape') $('[data-toggle="popover"]').popover('hide')
+    })
 
   if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show')
 // remember the hash in the URL without jumping

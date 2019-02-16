@@ -61,17 +61,17 @@ final class SBACDataHelper
     /**
      * Get cell data, most likely for preview popover
      *
-     * @param int    $year   The test year.
+     * @param int    $grade  The testing year (8|11)
      * @param string $ssid   The student's SSID.
      * @param array  $fields Fields to display, deliminated by line break
      *
      * @return \Illuminate\Support\Collection|string
      */
-    public static function getCellData(int $year, string $ssid, ...$fields)
+    public static function getCellData(int $grade, string $ssid, array $fields)
     {
         $content = "";
         $result = Auth::user()->sbacStudents()
-            ->where('grade', $year)
+            ->where('grade', $grade)
             ->where('ssid', $ssid);
         if (!$result->exists()) {
             return "<em>No Data</em>";

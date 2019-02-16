@@ -29,6 +29,6 @@ Route::group(['middleware' => 'auth'], function() {
 
 /** AJAX */
 Route::post('/ajax/getTableData', 'AjaxController@getTableData');
-
+Route::post('/ajax/getCellData', 'AjaxController@getCellData');
 /** Homepage Charts */
 Route::get('/ajax/getLevels/{level}', 'ChartsController@getLevels');

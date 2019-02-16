@@ -37,12 +37,7 @@ $(function () {
     //TODO Custom Column Visibility
     $('.static-table').DataTable({
       drawCallback: () => {
-        $('.static-table').find('td').popover({
-          trigger  : 'hover',
-          container: 'body',
-          placement: 'top',
-          html     : true
-        })
+
       }
     })
     $('.select2-course').select2({
@@ -146,13 +141,20 @@ $(function () {
 })
 
 /** View Charts **/
+let ViewTableHelper = {
+  showPeekPopover: (td, grade, content) => {
+    td.popover({
+      content  : content,
+      title    : 'Result in SBAC ' + grade,
+      container: 'body',
+      placement: 'right',
+      html     : true,
+      trigger  : 'click'
+    }).popover('show')
+  }
+}
 $(function () {
   if ($('.static-table').length) {
-    loadSparklines(false)
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-      loadSparklines(true)
-    })
-
     function loadSparklines (destroy) {
       if (destroy) {
         $('.sparklines-box').sparkline('destroy')
@@ -175,6 +177,33 @@ $(function () {
         },
       })
     }
+
+    loadSparklines(false)
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      loadSparklines(true)
+    })
+
+    //Popover Ajax
+    $('.static-table').find('td').on('click', function (e) {
+      let td = $(this)
+      let grade  = $(this).data('grade'),
+          ssid   = $(this).data('ssid'),
+          fields = $(this).data('fields').split(',')
+      // ViewTableHelper.showPeekPopover(td, grade, 'Loading...')
+      $.ajax({
+        url    : '/ajax/getCellData',
+        data   : {
+          grade : grade,
+          ssid  : ssid,
+          fields: fields
+        },
+        type   : 'POST',
+        success: result => {
+          ViewTableHelper.showPeekPopover(td, grade, result)
+        },
+        error  : () => ViewTableHelper.showPeekPopover(td, grade, '<em>Error - No Data</em>')
+      })
+    })
   }
 })
 

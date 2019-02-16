@@ -91,55 +91,54 @@
                                     <tbody>
                                     @foreach($sbac8 as $score)
                                         <tr>
-                                            <td>
-                                                {{ $score->last_name }}</td>
+                                            <td>{{ $score->last_name }}</td>
                                             <td>{{ $score->first_name }}</td>
-                                            <td data-toggle="popover" data-title="Result in SBAC 11"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(11, $score->ssid, 'math_scale', 'math_level') }}">
-                                                {!! $score->math_scale ?? "<em>No Score</em>" !!}
+                                            <td data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="math_scale,math_level">{!! $score->math_scale ?? "<em>No Score</em>" !!}
                                                 <hr style="margin:5px 0">
                                                 {!! $score->math_level !!}
                                             </td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('reasoning') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 11"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(11, $score->ssid, 'reasoning') }}">
-                                                {!! $score->reasoning !!}
+                                                data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="reasoning">{!! $score->reasoning !!}
                                             </td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('concepts') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 11"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(11, $score->ssid, 'concepts') }}">
-                                                {!! $score->concepts !!}
+                                                data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="concepts">{!! $score->concepts !!}
                                             </td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('modeling') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 11"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(11, $score->ssid, 'modeling') }}">
-                                                {!! $score->modeling !!}
+                                                data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="modeling">{!! $score->modeling !!}
                                             </td>
-                                            <td data-toggle="popover" data-title="Result in SBAC 11"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(11, $score->ssid, 'ela_scale', 'ela_level') }}">
-                                                {!! $score->ela_scale ?? "<em>No Score</em>" !!}
+                                            <td data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="ela_scale,ela_level">{!! $score->ela_scale ?? "<em>No Score</em>" !!}
                                                 <hr style="margin:5px 0">
                                                 {!! $score->ela_level !!}
                                             </td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('inquiry') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 11"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(11, $score->ssid, 'inquiry') }}">
-                                                {!! $score->inquiry !!}
+                                                data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="inquiry">{!! $score->inquiry !!}
                                             </td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('listening') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 11"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(11, $score->ssid, 'listening') }}">
-                                                {!! $score->listening !!}
+                                                data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="listening"> {!! $score->listening !!}
                                             </td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('reading') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 11"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(11, $score->ssid, 'reading') }}">
-                                                {!! $score->reading !!}
+                                                data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="reading">{!! $score->reading !!}
                                             </td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('writing') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 11"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(11, $score->ssid, 'writing') }}">
-                                                {!! $score->writing !!}
+                                                data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="writing">{!! $score->writing !!}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -207,45 +206,48 @@
                                             <td>{{ $score->last_name }}</td>
                                             <td>{{ $score->first_name }}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('math_level') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 8"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(8, $score->ssid, 'math_level', 'math_scale') }}">
-                                                {!! $score->math_scale ?? "<em>No Score</em>" !!}
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="math_scale,math_level">{!! $score->math_scale ?? "<em>No Score</em>" !!}
                                                 <hr style="margin:5px 0">
                                                 {!! $score->math_level !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('reasoning') ?? -1) }}"
                                                 data-toggle="popover" data-title="Result in SBAC 8"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(8, $score->ssid, 'reasoning') }}">
-                                                {!! $score->reasoning !!}</td>
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="reasoning">{!! $score->reasoning !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('concepts') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 8"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(8, $score->ssid, 'concepts') }}">
-                                                {!! $score->concepts !!}</td>
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="concepts">{!! $score->concepts !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('modeling') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 8"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(8, $score->ssid, 'modeling') }}">
-                                                {!! $score->modeling !!}</td>
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="modeling"> {!! $score->modeling !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('ela_level') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 8"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(8, $score->ssid, 'ela_level', 'ela_scale') }}">
-                                                {!! $score->ela_scale ?? "<em>No Score</em>" !!}
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="ela_scale,ela_level"> {!! $score->ela_scale ?? "<em>No Score</em>" !!}
                                                 <hr style="margin:5px 0">
                                                 {!! $score->ela_level !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('inquiry') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 8"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(8, $score->ssid, 'inquiry') }}">
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="inquiry">
                                                 {!! $score->inquiry !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('listening') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 8"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(8, $score->ssid, 'listening') }}">
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="listening">
                                                 {!! $score->listening !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('reading') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 8"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(8, $score->ssid, 'reading') }}">
-                                                {!! $score->reading !!}</td>
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="reading">{!! $score->reading !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('writing') ?? -1) }}"
-                                                data-toggle="popover" data-title="Result in SBAC 8"
-                                                data-content="{{ \App\Helpers\SBACDataHelper::getCellData(8, $score->ssid, 'writing') }}">
-                                                {!! $score->writing !!}</td>
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="writing">{!! $score->writing !!}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -257,8 +259,8 @@
                     <div class="tab-pane" id="psat11">
                         <div class="box box-success">
                             <div class="box-header with-border">
-                                <h3 class="box-title">PSAT Grade 12</h3>
-                                <p class="help-block">Click on table cell to view data for Grade 11.</p>
+                                <h3 class="box-title">PSAT Grade 11</h3>
+                                <p class="help-block">Click on box-and-whsisker plot for detailed information.</p>
                             </div>
                             <div class="box-body">
                                 <table id="psat11" class="table table-bordered table-striped static-table">
@@ -292,13 +294,16 @@
                                             <td>
                                                 <div class="row">
                                                     <div class="col-xs-4"><strong rel="tooltip"
-                                                                                  title='Among students in "{{\App\Helpers\CourseHelper
-                                                                                                                ::splitCourse($course)}}".'>
+                                                                                  title='Among your students in Period {{\App\Helpers\CourseHelper
+                                                                                                                ::getPeriodFromCourse($course)}}.'>
                                                             Period</strong><br>
                                                         {{ \App\Helpers\PSATHelper::calcTotalPercentile(
                                                             $score->ssid,
                                                             $score->total,
-                                                            $score->year, 'period') }}%
+                                                            $score->year,
+                                                            'period',
+                                                            Auth::user()->email,
+                                                             $course) }}%
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <strong rel="tooltip"
@@ -308,12 +313,11 @@
                                                             $score->total,
                                                             $score->year,
                                                             'teacher',
-                                                             \Illuminate\Support\Facades\Auth::user()->email,
-                                                            $score->course) }}
+                                                            Auth::user()->email) }}
                                                         %
                                                     </div>
                                                     <div class="col-xs-4">
-                                                        <strong rel="tooltip" title="Among students in all classes.">School</strong>
+                                                        <strong rel="tooltip" title="Among students in all classes.">School</strong><br>
                                                         {{ \App\Helpers\PSATHelper::calcTotalPercentile(
                                                             $score->ssid,
                                                             $score->total,

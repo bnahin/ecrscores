@@ -28,7 +28,7 @@ class PSATHelper
         string $ssid,
         int $total,
         string $year,
-        string $mode = 'period',
+        string $mode = 'school',
         string $teacher = "",
         string $course = ""
     ) {
@@ -51,7 +51,7 @@ class PSATHelper
                 break;
         }
 
-        return ($others) ?
+        return ($others && count($others)) ?
             self::getPercentile($total, $others->pluck('total')) : "N/A";
     }
 

@@ -57,4 +57,9 @@ final class CourseHelper
 
         return "Period " . $pieces[0] . " - " . $pieces[1];
     }
+
+    public static function getPeriodFromCourse(string $course): string
+    {
+        return explode('-', $course)[0];
+    }
 }
