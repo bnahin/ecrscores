@@ -297,31 +297,16 @@
                                                                                   title='Among your students in Period {{\App\Helpers\CourseHelper
                                                                                                                 ::getPeriodFromCourse($course)}}.'>
                                                             Period</strong><br>
-                                                        {{ \App\Helpers\PSATHelper::calcTotalPercentile(
-                                                            $score->ssid,
-                                                            $score->total,
-                                                            $score->year,
-                                                            'period',
-                                                            Auth::user()->email,
-                                                             $course) }}%
+                                                        {!! \App\Helpers\PSATHelper::getPercentile($score, 'period'). "%" !!}
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <strong rel="tooltip"
                                                                 title="Among your students across all periods.">Students</strong><br>
-                                                        {{ \App\Helpers\PSATHelper::calcTotalPercentile(
-                                                            $score->ssid,
-                                                            $score->total,
-                                                            $score->year,
-                                                            'teacher',
-                                                            Auth::user()->email) }}
-                                                        %
+                                                        {!! \App\Helpers\PSATHelper::getPercentile($score, 'students'). "%" !!}
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <strong rel="tooltip" title="Among students in all classes.">School</strong><br>
-                                                        {{ \App\Helpers\PSATHelper::calcTotalPercentile(
-                                                            $score->ssid,
-                                                            $score->total,
-                                                            $score->year, 'school') }}%
+                                                        {!! \App\Helpers\PSATHelper::getPercentile($score, 'school'). "%" !!}
                                                     </div>
                                                 </div>
                                         </tr>

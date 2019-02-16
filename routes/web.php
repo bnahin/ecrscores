@@ -11,10 +11,6 @@
 |
 */
 
-/** In Sync */
-Route::get('/errors/sync', function() {
-    return view('insync');
-})->name('in-sync');
 /** Login */
 Route::get('/login-google', 'GoogleAuthController@redirect')->name('login');
 Route::get('/oauth-callback', 'GoogleAuthController@handle')->name('oauth-callback');

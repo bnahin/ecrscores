@@ -10,7 +10,7 @@ namespace App\Helpers;
 use App\PSAT;
 use Illuminate\Support\Facades\Auth;
 
-class PSATHelper
+final class PSATHelper
 {
     /**
      * Calculate Percentile
@@ -52,18 +52,18 @@ class PSATHelper
         }
 
         return ($others && count($others)) ?
-            self::getPercentile($total, $others->pluck('total')) : "N/A";
+            self::calcPercentile($total, $others->pluck('total')) : "N/A";
     }
 
     /**
-     * Get actual percentile.
+     * Calculate actual percentile.
      *
      * @param $total
      * @param $others
      *
      * @return float
      */
-    private static function getPercentile($total, $others)
+    private static function calcPercentile($total, $others)
     {
         $numAbove = 0;
         foreach ($others as $otherScore) {
@@ -75,5 +75,20 @@ class PSATHelper
         $percentile = round(100 - $percentAbove);
 
         return $percentile;
+    }
+
+    public static function getPercentile(PSAT $psat, string $type): string
+    {
+        $model = $psat->percentiles()->where('type', $type);
+        if (!$model->exists()) {
+            return "<em>N/A</em>";
+        }
+        $percent = $model->pluck('percent');
+        if (!$percent) {
+            return "<em>N/A</em>";
+        }
+
+        return $percent;
+
     }
 }

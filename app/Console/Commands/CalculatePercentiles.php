@@ -3,9 +3,11 @@
 namespace App\Console\Commands;
 
 use App\Helpers\PSATHelper;
+use App\Percentile;
 use App\PSAT;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class CalculatePercentiles extends Command
 {
@@ -40,6 +42,11 @@ class CalculatePercentiles extends Command
      */
     public function handle()
     {
+        Cache::put('datasync', true, 60);
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Percentile::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         $this->info('Calculating PSAT Percentiles...');
         //Loop through PSAT Data
         //Calculate percentiles w/ PSATHelper::calcTotalPercentile
@@ -63,8 +70,23 @@ class CalculatePercentiles extends Command
             $schoolPerc = PSATHelper::calcTotalPercentile($ssid, $total, $year);
 
             //Save Association
-
+            $percentiles = [
+                'school'  => $schoolPerc,
+                'teacher' => $teacherPerc,
+                'period'  => $periodPerc
+            ];
+            foreach ($percentiles as $type => $percent) {
+                $row = new Percentile([
+                    'type'    => $type,
+                    'percent' => ($percent == "N/A") ? null : $percent
+                ]);
+                $score->percentiles()->save($row);
+            }
 
         }
+
+        $this->line('Done.');
+
+        Cache::forget('datasync');
     }
 }

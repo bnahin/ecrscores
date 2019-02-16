@@ -50,6 +50,7 @@ use Illuminate\Support\Facades\Auth;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\PSAT[] $psatStudents
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereIsAdmin($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\SBAC[] $sbacStudents
+ * @property-read mixed $full_name
  */
 class User extends Authenticatable
 {
@@ -69,23 +70,35 @@ class User extends Authenticatable
      */
     protected $hidden = ['remember_token'];
 
+    /**
+     * PSAT Data.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function psatStudents()
     {
         return $this->hasMany(PSAT::class, 'teacher', 'email');
     }
 
+    /**
+     * SBAC Data.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function sbacStudents()
     {
         return $this->hasMany(SBAC::class, 'teacher', 'email');
     }
 
+    /**
+     * Uppercase full name.
+     * @return string
+     */
     public function getFullNameAttribute()
     {
         return ucwords("{$this->first_name} {$this->last_name}");
     }
 
     /**
-     * Get combined collection of years that have data
+     * Get combined collection of years that have data.
      * @return \Illuminate\Support\Collection
      */
     public function getYears()

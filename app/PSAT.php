@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\PSAT whereYear($value)
  * @property-read mixed                      $first_name
  * @property-read mixed                      $last_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Percentile[] $percentiles
  */
 class PSAT extends Model
 {
@@ -61,21 +62,37 @@ class PSAT extends Model
      */
     protected $guarded = [];
 
+    /**
+     * Get User.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function teacher()
     {
         return $this->belongsTo(User::class, 'email', 'email');
     }
 
+    /**
+     * Get Percentile.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function percentiles()
     {
-        return $this->hasMany(Percentile::class);
+        return $this->hasMany(Percentile::class,'psat_data_id', 'id');
     }
 
+    /**
+     * Uppercase first name.
+     * @return string
+     */
     public function getFirstNameAttribute()
     {
         return ucwords($this->fname);
     }
 
+    /**
+     * Uppercase last name.
+     * @return string
+     */
     public function getLastNameAttribute()
     {
         return ucwords($this->lname);

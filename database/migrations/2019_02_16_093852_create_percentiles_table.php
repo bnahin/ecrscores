@@ -17,7 +17,7 @@ class CreatePercentilesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('psat_data_id')->index();
             $table->enum('type', ['school', 'teacher', 'period']);
-            $table->integer('percent');
+            $table->integer('percent')->nullable();
             $table->timestamps();
 
             $table->foreign('psat_data_id')
