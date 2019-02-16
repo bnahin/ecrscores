@@ -50,10 +50,18 @@ $.ajaxSetup({
 $(function () {
   $('body').tooltip({
     selector: '[data-toggle="tooltip"], [rel="tooltip"]'
+  }).popover({
+    selector: '[data-toggle="popover"]:not(td), [rel="popover"]:not(td)'
+  }).on('click', function (e) {
+    //did not click a popover toggle or popover
+    if ($(e.target).data('toggle') !== 'popover'
+      && $(e.target).parents('.popover.in').length === 0) {
+      $('[data-toggle="popover"]').popover('hide')
+    }
   })
 
   if (location.hash !== '') $('a[href="' + location.hash + '"]').tab('show')
-  // remember the hash in the URL without jumping
+// remember the hash in the URL without jumping
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     if (history.pushState) {
       history.pushState(null, null, '#' + $(e.target).attr('href').substr(1))
@@ -64,14 +72,14 @@ $(function () {
 })
 
 //Matrix extension
-Array.matrix = function(numrows, numcols, initial) {
-  var arr = [];
+Array.matrix = function (numrows, numcols, initial) {
+  var arr = []
   for (var i = 0; i < numrows; ++i) {
-    var columns = [];
+    var columns = []
     for (var j = 0; j < numcols; ++j) {
-      columns[j] = initial;
+      columns[j] = initial
     }
-    arr[i] = columns;
+    arr[i] = columns
   }
-  return arr;
+  return arr
 }

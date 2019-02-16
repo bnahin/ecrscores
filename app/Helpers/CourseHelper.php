@@ -40,4 +40,21 @@ final class CourseHelper
 
         return $data;
     }
+
+    /**
+     * Split course string into period and class name.
+     *
+     * @param string $course
+     *
+     * @return string Full course string.
+     */
+    public static function splitCourse(string $course): string
+    {
+        $pieces = explode('-', $course);
+        if (count($pieces) != 2) {
+            return $course;
+        }
+
+        return "Period " . $pieces[0] . " - " . $pieces[1];
+    }
 }

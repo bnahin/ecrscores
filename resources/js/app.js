@@ -7,10 +7,11 @@
 require('./bootstrap')
 
 /** Static Table Popover **/
+
 /**
  * If in 8th grade tab, view category info for 11th grade
  * If in 11th grade tab, view category info for 8th grade
- * Hover over icon
+ * Hover over icon (Info icon)
  */
 
 /** Compare Tab **/
@@ -33,7 +34,16 @@ $(function () {
   let dataTable
   $('.compare-select').val(null).trigger('change')
   //TODO Custom Column Visibility
-  $('.static-table').DataTable()
+  $('.static-table').DataTable({
+    drawCallback: () => {
+      $('.static-table').find('td').popover({
+        trigger  : 'hover',
+        container: 'body',
+        placement: 'top',
+        html     : true
+      })
+    }
+  })
   $('.select2-course').select2({
     templateSelection: course => course.element.dataset.label
   }).on('select2:select', function (e) {

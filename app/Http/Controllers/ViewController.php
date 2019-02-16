@@ -26,6 +26,6 @@ class ViewController extends Controller
 
         $data = CourseHelper::getScoresFromCourse($year, $course);
 
-        return view('view', compact('data'));
+        return view('view', compact('data', 'course', 'year'));
     }
 }

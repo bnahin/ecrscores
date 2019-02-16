@@ -7,6 +7,8 @@
 namespace App\Helpers;
 
 
+use Illuminate\Support\Facades\Auth;
+
 final class SBACDataHelper
 {
     public static function getLevelFromInt(int $level): string
@@ -28,15 +30,44 @@ final class SBACDataHelper
     public static function getColorFromInt(int $level): string
     {
         switch ($level) {
-        case 0:
-            return "danger";
-        case 1:
-            return "warning";
-        case 2:
-        case 3:
-            return "success";
-        default:
-            return "info";
+            case 0:
+                return "danger";
+            case 1:
+                return "warning";
+            case 2:
+            case 3:
+                return "success";
+            default:
+                return "info";
+        }
     }
+
+    /**
+     * Get cell data, most likely for preview popover
+     *
+     * @param int    $year The test year.
+     * @param string $ssid The student's SSID.
+     * @param array  $fields Fields to display, deliminated by line break
+     *
+     * @return \Illuminate\Support\Collection|string
+     */
+    public static function getCellData(int $year, string $ssid, ...$fields)
+    {
+        $content = "";
+        $result = Auth::user()->sbacStudents()
+            ->where('grade', $year)
+            ->where('ssid', $ssid);
+        if (!$result->exists()) {
+            return "<em>No Data</em>";
+        }
+
+        for ($i = 0; $i < count($fields); $i++) {
+            $content .= $result->pluck($fields[$i])->first();
+            if ($i != count($fields) - 1) {
+                $content .= "<br>";
+            }
+        }
+
+        return $content;
     }
 }
