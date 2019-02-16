@@ -11,6 +11,7 @@
 
 @push('scripts')
     <script src="{{ asset('bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
 @endpush
 
 @push('styles')
@@ -20,6 +21,7 @@
 @php
     $sbac8 = $data['sbac'][8]->get();
     $sbac11 = $data['sbac'][11]->get();
+    $psat11 = $data['psat']->where('grade', 11)->get()
 @endphp
 
 @section('content')
@@ -27,7 +29,7 @@
         <div class="col-xs-12">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#sbac8" data-toggle="tab" aria-expanded="true">SBAC 8</a></li>
+                    <li class="active"><a href="#sbac8" data-toggle="tab" aria-expanded="true">SBAC 8</a><br></li>
                     <li class=""><a href="#sbac11" data-toggle="tab" aria-expanded="false">SBAC 11</a></li>
                     <li class=""><a href="#psat11" data-toggle="tab" aria-expanded="false">PSAT 11</a></li>
                     <li class=""><a href="#compare" data-toggle="tab" aria-expanded="false">Compare</a></li>
@@ -37,8 +39,9 @@
 
                         <div class="box box-success">
                             <div class="box-header with-border">
-                                <h3 class="box-title">SBAC Grade 8</h3>
+                                <h3 class="box-title">SBAC Grade 8 <br></h3>
                                 <p class="help-block">Click on table cell to view data for Grade 11.</p>
+                                <p class="help-block">Hover over charts for detailed information.</p>
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
@@ -47,15 +50,42 @@
                                     <tr>
                                         <th>Last Name</th>
                                         <th>First Name</th>
-                                        <th>Math Scale</th>
-                                        <th>Communicating and Reasoning</th>
-                                        <th>Concepts and Procedures</th>
-                                        <th>Problem Solving and Modeling</th>
-                                        <th>ELA Scale</th>
-                                        <th>Inquiry</th>
-                                        <th>Listening</th>
-                                        <th>Reading</th>
-                                        <th>Writing</th>
+                                        <th>Math Scale
+                                            <span class="sparklines-box"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'math_scale')}}"></span>
+                                        </th>
+                                        <th>Communicating and Reasoning
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'ela_level')}}"></span>
+                                        </th>
+                                        <th>Concepts and Procedures
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'concepts')}}"></span>
+                                        </th>
+                                        <th>Problem Solving and Modeling
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'modeling')}}"></span>
+                                        </th>
+                                        <th>ELA Scale
+                                            <span class="sparklines-box"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'ela_scale')}}"></span>
+                                        </th>
+                                        <th>Inquiry
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'inquiry')}}"></span>
+                                        </th>
+                                        <th>Listening
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'listening')}}"></span>
+                                        </th>
+                                        <th>Reading
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'reading')}}"></span>
+                                        </th>
+                                        <th>Writing
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'writing')}}"></span>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -124,6 +154,8 @@
                         <div class="box box-success">
                             <div class="box-header with-border">
                                 <h3 class="box-title">SBAC Grade 11</h3>
+                                <p class="help-block">Click on table cell to view data for Grade 8.</p>
+                                <p class="help-block">Hover over charts for detailed information.</p>
                             </div>
                             <div class="box-body">
                                 <table id="sbac11" class="table table-bordered table-striped static-table">
@@ -131,15 +163,42 @@
                                     <tr>
                                         <th>Last Name</th>
                                         <th>First Name</th>
-                                        <th>Math Scale</th>
-                                        <th>Communicating and Reasoning</th>
-                                        <th>Concepts and Procedures</th>
-                                        <th>Problem Solving and Modeling</th>
-                                        <th>ELA Scale</th>
-                                        <th>Inquiry</th>
-                                        <th>Listening</th>
-                                        <th>Reading</th>
-                                        <th>Writing</th>
+                                        <th>Math Scale
+                                            <span class="sparklines-box"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'math_scale')}}"></span>
+                                        </th>
+                                        <th>Communicating and Reasoning
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'ela_level')}}"></span>
+                                        </th>
+                                        <th>Concepts and Procedures
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'concepts')}}"></span>
+                                        </th>
+                                        <th>Problem Solving and Modeling
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'modeling')}}"></span>
+                                        </th>
+                                        <th>ELA Scale
+                                            <span class="sparklines-box"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'ela_scale')}}"></span>
+                                        </th>
+                                        <th>Inquiry
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'inquiry')}}"></span>
+                                        </th>
+                                        <th>Listening
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'listening')}}"></span>
+                                        </th>
+                                        <th>Reading
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'reading')}}"></span>
+                                        </th>
+                                        <th>Writing
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'writing')}}"></span>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -199,6 +258,7 @@
                         <div class="box box-success">
                             <div class="box-header with-border">
                                 <h3 class="box-title">PSAT Grade 12</h3>
+                                <p class="help-block">Click on table cell to view data for Grade 11.</p>
                             </div>
                             <div class="box-body">
                                 <table id="psat11" class="table table-bordered table-striped static-table">
@@ -206,14 +266,23 @@
                                     <tr>
                                         <th width="15%">Last Name</th>
                                         <th width="15%">First Name</th>
-                                        <th width="10%">Reading/Writing</th>
-                                        <th width="10%">Mathematics</th>
-                                        <th class="success" width="15%">Total</th>
+                                        <th width="10%">Reading/Writing
+                                            <span class="sparklines-box"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($psat11,'readwrite')}}"></span>
+                                        </th>
+                                        <th width="10%">Mathematics
+                                            <span class="sparklines-box"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($psat11,'math')}}"></span>
+                                        </th>
+                                        <th class="success" width="15%">Total<br>
+                                            <span class="sparklines-box"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($psat11,'total')}}"></span>
+                                        </th>
                                         <th>Percentiles</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($data['psat']->where('grade', 11)->get() as $score)
+                                    @foreach($psat11 as $score)
                                         <tr>
                                             <td width="15%">{{ $score->first_name }}</td>
                                             <td width="15%">{{ $score->last_name }}</td>

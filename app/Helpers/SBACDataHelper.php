@@ -27,6 +27,22 @@ final class SBACDataHelper
         }
     }
 
+    public static function getIntFromLevel(string $level): int
+    {
+        switch ($level) {
+            case "Standard Not Met":
+                return 0;
+            case "Near Standard":
+                return 1;
+            case "Standard Met":
+                return 2;
+            case "Standard Exceeded":
+                return 3;
+            default:
+                return -1;
+        }
+    }
+
     public static function getColorFromInt(int $level): string
     {
         switch ($level) {
@@ -45,8 +61,8 @@ final class SBACDataHelper
     /**
      * Get cell data, most likely for preview popover
      *
-     * @param int    $year The test year.
-     * @param string $ssid The student's SSID.
+     * @param int    $year   The test year.
+     * @param string $ssid   The student's SSID.
      * @param array  $fields Fields to display, deliminated by line break
      *
      * @return \Illuminate\Support\Collection|string

@@ -6,6 +6,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class Helper
@@ -36,7 +37,37 @@ class Helper
         return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
     }
 
-    public static function inSync(): bool {
+    public static function inSync(): bool
+    {
         return Cache::has('datasync');
     }
+
+    public static function formatForSparkline(Collection $collection, string $field)
+    {
+        $string = $collection->pluck($field)->map(function ($value) {
+            $int = $value;
+            if (!filter_var($int, FILTER_VALIDATE_INT)) {
+                $int = SBACDataHelper::getIntFromLevel($int);
+            }
+
+            return $int;
+        })->reject(function ($value) {
+            //return $value < 0;
+        })->implode(',');
+
+        if (!str_contains($field, 'scale') &&
+            !in_array($field, ['readwrite', 'math', 'total'])) {
+            $arr = [-1 => 0, 0 => 0, 1 => 0, 2 => 0, 3 => 0];
+            foreach (explode(",", $string) as $num) {
+                if (!isset($arr[$num])) {
+                    continue;
+                }
+                $arr[$num]++;
+            }
+            $string = implode($arr, ",");
+        }
+
+        return $string;
+    }
+
 }
