@@ -289,7 +289,37 @@
                                             <td width="10%">{{ $score->readwrite }}</td>
                                             <td width="10%">{{ $score->math }}</td>
                                             <td class="success" width="15%">{{ $score->total }}</td>
-                                            <td>Period / School (colors)</td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-xs-4"><strong rel="tooltip"
+                                                                                  title='Among students in "{{\App\Helpers\CourseHelper
+                                                                                                                ::splitCourse($course)}}".'>
+                                                            Period</strong><br>
+                                                        {{ \App\Helpers\PSATHelper::calcTotalPercentile(
+                                                            $score->ssid,
+                                                            $score->total,
+                                                            $score->year, 'period') }}%
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <strong rel="tooltip"
+                                                                title="Among your students across all periods.">Students</strong><br>
+                                                        {{ \App\Helpers\PSATHelper::calcTotalPercentile(
+                                                            $score->ssid,
+                                                            $score->total,
+                                                            $score->year,
+                                                            'teacher',
+                                                             \Illuminate\Support\Facades\Auth::user()->email,
+                                                            $score->course) }}
+                                                        %
+                                                    </div>
+                                                    <div class="col-xs-4">
+                                                        <strong rel="tooltip" title="Among students in all classes.">School</strong>
+                                                        {{ \App\Helpers\PSATHelper::calcTotalPercentile(
+                                                            $score->ssid,
+                                                            $score->total,
+                                                            $score->year, 'school') }}%
+                                                    </div>
+                                                </div>
                                         </tr>
                                     @endforeach
                                     </tbody>
