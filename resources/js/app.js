@@ -36,8 +36,8 @@ $(function () {
     $('.compare-select').val(null).trigger('change')
     //TODO Custom Column Visibility
     $('.static-table').DataTable({
-      drawCallback: () => {
-
+      drawCallback: (e) => {
+        $('#' + e.sTableId + '-load').remove()
       }
     })
     $('.select2-course').select2({
@@ -137,6 +137,12 @@ $(function () {
         })
       }
     }
+
+    /** Filter Boxes **/
+    $('.filter-box').find('input:checkbox').change(function () {
+      let table = $('#' + $(this).parents('.filter-box-container').data('controls'))
+      table.DataTable().column($(this).val() + ':name').visible($(this).prop('checked'))
+    })
   }
 })
 
@@ -210,109 +216,170 @@ $(function () {
 /** Homepage Charts **/
 $(function () {
   if ($('.static-table').length) return null
+
+  let mathColor = 'rgba(255, 99, 132)',
+      elaColor  = 'rgba(153, 102, 255)'
   /** PSAT Averages **/
-  new Chart(document.getElementById('psat-averages'), {
-    type   : 'bar',
-    data   : {
-      labels  : ['2016-2017', '2017-2018'],
-      datasets: [{
-        label          : 'Math',
-        data           : [600, 710],
-        fill           : true,
-        backgroundColor: ['rgba(255, 99, 132)', 'rgba(255, 99, 132)'],
-        borderWidth    : 1
-      }, {
-        label          : 'Reading/Writing',
-        data           : [700, 450],
-        fill           : true,
-        backgroundColor: ['rgba(153, 102, 255)', 'rgba(153, 102, 255)'],
-        borderWidth    : 1
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks  : {beginAtZero: true},
-          stacked: true
-        }],
-        xAxes: [{
-          stacked: true
-        }]
+  $.get('/ajax/getAverages/psat', function (response) {
+    let mathData      = [],
+        readingData   = [],
+        years         = [],
+        mathColors    = [],
+        readingColors = []
+
+    for (let d in response.math)
+      if (response.math.hasOwnProperty(d)) {
+        mathData.push(response['math'][d])
+        mathColors.push(mathColor)
       }
-    }
+
+    for (let d in response.reading)
+      if (response.reading.hasOwnProperty(d)) {
+        readingData.push(response['reading'][d])
+        readingColors.push(elaColor)
+      }
+
+    for (let d in response.years)
+      if (response.years.hasOwnProperty(d)) {
+        years.push(response['years'][d])
+      }
+    new Chart(document.getElementById('psat-averages'), {
+      type   : 'bar',
+      data   : {
+        labels  : years,
+        datasets: [{
+          label          : 'Math',
+          data           : mathData,
+          fill           : true,
+          backgroundColor: mathColors,
+          borderWidth    : 1
+        }, {
+          label          : 'Reading/Writing',
+          data           : readingData,
+          fill           : true,
+          backgroundColor: readingColors,
+          borderWidth    : 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks  : {beginAtZero: true},
+            stacked: true
+          }],
+          xAxes: [{
+            stacked: true
+          }]
+        }
+      }
+    })
+    $('#psat-averages').parent().siblings('.overlay').remove()
   })
 
   /** SBAC Averages **/
-  new Chart(document.getElementById('sbac-averages'), {
-    type   : 'bar',
-    data   : {
-      labels  : ['2016-2017', '2017-2018'],
-      datasets: [{
-        label          : 'ELA Scale',
-        data           : [2500, 3500],
-        fill           : true,
-        backgroundColor: ['rgba(255, 99, 132)', 'rgba(255, 99, 132)'],
-        borderWidth    : 1
-      }, {
-        label          : 'Math Scale',
-        data           : [2600, 2500],
-        fill           : true,
-        backgroundColor: ['rgba(153, 102, 255)', 'rgba(153, 102, 255)'],
-        borderWidth    : 1
-      }]
-    },
-    options: {
-      scales: {
-        yAxes: [{
-          ticks  : {beginAtZero: true},
-          stacked: false
-        }],
-        xAxes: [{
-          stacked: false
-        }]
+  $.get('/ajax/getAverages/sbac', function (response) {
+    let mathData   = [],
+        elaData    = [],
+        years      = [],
+        mathColors = [],
+        elaColors  = []
+
+    for (let d in response.math)
+      if (response.math.hasOwnProperty(d)) {
+        mathData.push(response['math'][d])
+        mathColors.push(mathColor)
       }
-    }
+
+    for (let d in response.ela)
+      if (response.ela.hasOwnProperty(d)) {
+        elaData.push(response['ela'][d])
+        elaColors.push(elaColor)
+      }
+
+    for (let d in response.years)
+      if (response.years.hasOwnProperty(d)) {
+        years.push(response['years'][d])
+      }
+    setTimeout(() => {
+      new Chart(document.getElementById('sbac-averages'), {
+        type   : 'bar',
+        data   : {
+          labels  : years,
+          datasets: [{
+            label          : 'ELA Scale',
+            data           : elaData,
+            fill           : true,
+            backgroundColor: elaColors,
+            borderWidth    : 1
+          }, {
+            label          : 'Math Scale',
+            data           : mathData,
+            fill           : true,
+            backgroundColor: mathColors,
+            borderWidth    : 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks  : {beginAtZero: true},
+              stacked: false
+            }],
+            xAxes: [{
+              stacked: false
+            }]
+          }
+        }
+      })
+      $('#sbac-averages').parent().siblings('.overlay').remove()
+    }, 2000)
   })
 
-  let levelColors = ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(50, 245, 115)', 'rgb(6, 121, 44)'],
-      data        = []
-
+  let levelColors = ['rgb(255, 99, 132)', 'rgb(54, 162, 235)', 'rgb(50, 245, 115)', 'rgb(6, 121, 44)']
   /** SBAC Math Levels **/
   $.get('/ajax/getLevels/math', function (response) {
-    data = []
+    let data = []
     for (let d in response)
       if (response.hasOwnProperty(d))
         data.push(response[d]['total'])
-    new Chart(document.getElementById('math-levels'), {
-      type: 'pie',
-      data: {
-        labels  : ['Standard Not Met', 'Near Standard', 'Meets Standard', 'Exceeds Standard'],
-        datasets: [{
-          label          : 'My First Dataset',
-          data           : data,
-          backgroundColor: levelColors
-        }]
-      }
-    })
+    setTimeout(() => {
+      new Chart(document.getElementById('math-levels'), {
+        type: 'pie',
+        data: {
+          labels  : ['Standard Not Met', 'Near Standard', 'Meets Standard', 'Exceeds Standard'],
+          datasets: [{
+            label          : 'My First Dataset',
+            data           : data,
+            backgroundColor: levelColors
+          }]
+        }
+      })
+      $('#math-levels').parent().siblings('.overlay').remove()
+    }, 1000)
   })
 
   /** SBAC ELA Levels **/
   $.get('/ajax/getLevels/ela', function (response) {
-    data = []
+    let data = []
     for (let d in response)
       if (response.hasOwnProperty(d))
         data.push(response[d]['total'])
-    new Chart(document.getElementById('ela-levels'), {
-      type: 'pie',
-      data: {
-        labels  : ['Standard Not Met', 'Near Standard', 'Meets Standard', 'Exceeds Standard'],
-        datasets: [{
-          label          : 'My First Dataset',
-          data           : data,
-          backgroundColor: levelColors
-        }]
-      }
+    setTimeout(() => {
+      new Chart(document.getElementById('ela-levels'), {
+        type: 'pie',
+        data: {
+          labels  : ['Standard Not Met', 'Near Standard', 'Meets Standard', 'Exceeds Standard'],
+          datasets: [{
+            label          : 'My First Dataset',
+            data           : data,
+            backgroundColor: levelColors
+          }]
+        }
+      }, 3000)
+      $('#ela-levels').parent().siblings('.overlay').remove()
     })
   })
 
+  /** Timeout Loading **/
+  setTimeout(() => $('.overlay').find('.fa').removeClass('fa-spinner fa-spin').addClass('fa-remove'), 15000)
 })

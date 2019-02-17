@@ -29,9 +29,29 @@
         <div class="col-xs-12">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#sbac8" data-toggle="tab" aria-expanded="true">SBAC 8</a><br></li>
-                    <li class=""><a href="#sbac11" data-toggle="tab" aria-expanded="false">SBAC 11</a></li>
-                    <li class=""><a href="#psat11" data-toggle="tab" aria-expanded="false">PSAT 11</a></li>
+                    <li class="active"><a href="#sbac8" data-toggle="tab" aria-expanded="true">
+                            SBAC 8
+                            <div class="tab-loading" id="sbac8-load">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class=""><a href="#sbac11" data-toggle="tab" aria-expanded="false">
+                            SBAC 11
+                            <br>
+                            <div class="tab-loading" id="sbac11-load">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class=""><a href="#psat11" data-toggle="tab" aria-expanded="false">
+                            PSAT 11
+                            <br>
+                            <div class="tab-loading" id="psat11-load">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
+                        </a>
+                    </li>
                     <li class=""><a href="#compare" data-toggle="tab" aria-expanded="false">Compare</a></li>
                 </ul>
                 <div class="tab-content">
@@ -382,7 +402,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="filter-box-1" style="display: none;">
+                                        <div id="filter-box-1" data-controls="sbac-compare-1" class="filter-box-container" style="display: none;">
                                             @include('partials.filterbox')
                                         </div>
 
@@ -481,7 +501,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="filter-box-2" style="display: none;">
+                                        <div id="filter-box-2" data-controls="sbac-compare-2" class="filter-box-container" style="display: none;">
                                             @include('partials.filterbox')
                                         </div>
 

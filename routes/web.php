@@ -28,3 +28,4 @@ Route::post('/ajax/getTableData', 'AjaxController@getTableData');
 Route::post('/ajax/getCellData', 'AjaxController@getCellData');
 /** Homepage Charts */
 Route::get('/ajax/getLevels/{level}', 'ChartsController@getLevels');
+Route::get('/ajax/getAverages/{exam}', 'ChartsController@getAverages');

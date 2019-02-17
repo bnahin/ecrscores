@@ -78,6 +78,9 @@
                 <div class="box-body">
                     <canvas id="psat-averages"></canvas>
                 </div>
+                <div class="overlay">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -85,6 +88,9 @@
                 <div class="box-header"><h5>SBAC Math Levels</h5></div>
                 <div class="box-body">
                     <canvas id="math-levels"></canvas>
+                </div>
+                <div class="overlay">
+                    <i class="fa fa-spinner fa-spin"></i>
                 </div>
             </div>
         </div>
@@ -96,6 +102,9 @@
                 <div class="box-body">
                     <canvas id="sbac-averages"></canvas>
                 </div>
+                <div class="overlay">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -103,6 +112,9 @@
                 <div class="box-header"><h5>SBAC ELA Levels</h5></div>
                 <div class="box-body">
                     <canvas id="ela-levels"></canvas>
+                </div>
+                <div class="overlay">
+                    <i class="fa fa-spinner fa-spin"></i>
                 </div>
             </div>
         </div>
