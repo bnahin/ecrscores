@@ -76,6 +76,24 @@
                                             <br><span class="th-normal">Average: </span><span
                                                 id="sbac-avg-math_scale-8"><em>N/A</em></span>
                                         </th>
+                                        <th>ELA Scale
+                                            <span class="sparklines-box"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'ela_scale')}}"></span>
+                                            <br><span class="th-normal">Average: </span><span
+                                                id="sbac-avg-ela_scale-8"><em>N/A</em></span>
+                                        </th>
+                                        <th>Reading
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'reading')}}"></span>
+                                        </th>
+                                        <th>Writing
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'writing')}}"></span>
+                                        </th>
+                                        <th>Listening
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'listening')}}"></span>
+                                        </th>
                                         <th>Communicating and Reasoning
                                             <span class="sparklines-pie"
                                                   values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'ela_level')}}"></span>
@@ -88,28 +106,11 @@
                                             <span class="sparklines-pie"
                                                   values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'modeling')}}"></span>
                                         </th>
-                                        <th>ELA Scale
-                                            <span class="sparklines-box"
-                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'ela_scale')}}"></span>
-                                            <br><span class="th-normal">Average: </span><span
-                                                id="sbac-avg-ela_scale-8"><em>N/A</em></span>
-                                        </th>
                                         <th>Inquiry
                                             <span class="sparklines-pie"
                                                   values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'inquiry')}}"></span>
                                         </th>
-                                        <th>Listening
-                                            <span class="sparklines-pie"
-                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'listening')}}"></span>
-                                        </th>
-                                        <th>Reading
-                                            <span class="sparklines-pie"
-                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'reading')}}"></span>
-                                        </th>
-                                        <th>Writing
-                                            <span class="sparklines-pie"
-                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'writing')}}"></span>
-                                        </th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -122,6 +123,27 @@
                                                 data-fields="math_scale,math_level">{!! $score->math_scale ?? "<em>No Score</em>" !!}
                                                 <hr style="margin:5px 0">
                                                 {!! $score->math_level !!}
+                                            </td>
+                                            <td data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="ela_scale,ela_level">{!! $score->ela_scale ?? "<em>No Score</em>" !!}
+                                                <hr style="margin:5px 0">
+                                                {!! $score->ela_level !!}
+                                            </td>
+                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('reading') ?? -1) }}"
+                                                data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="reading">{!! $score->reading !!}
+                                            </td>
+                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('writing') ?? -1) }}"
+                                                data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="writing">{!! $score->writing !!}
+                                            </td>
+                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('listening') ?? -1) }}"
+                                                data-grade="11"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="listening"> {!! $score->listening !!}
                                             </td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('reasoning') ?? -1) }}"
                                                 data-grade="11"
@@ -138,31 +160,10 @@
                                                 data-ssid="{{ $score->ssid }}"
                                                 data-fields="modeling">{!! $score->modeling !!}
                                             </td>
-                                            <td data-grade="11"
-                                                data-ssid="{{ $score->ssid }}"
-                                                data-fields="ela_scale,ela_level">{!! $score->ela_scale ?? "<em>No Score</em>" !!}
-                                                <hr style="margin:5px 0">
-                                                {!! $score->ela_level !!}
-                                            </td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('inquiry') ?? -1) }}"
                                                 data-grade="11"
                                                 data-ssid="{{ $score->ssid }}"
                                                 data-fields="inquiry">{!! $score->inquiry !!}
-                                            </td>
-                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('listening') ?? -1) }}"
-                                                data-grade="11"
-                                                data-ssid="{{ $score->ssid }}"
-                                                data-fields="listening"> {!! $score->listening !!}
-                                            </td>
-                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('reading') ?? -1) }}"
-                                                data-grade="11"
-                                                data-ssid="{{ $score->ssid }}"
-                                                data-fields="reading">{!! $score->reading !!}
-                                            </td>
-                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('writing') ?? -1) }}"
-                                                data-grade="11"
-                                                data-ssid="{{ $score->ssid }}"
-                                                data-fields="writing">{!! $score->writing !!}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -192,6 +193,24 @@
                                             <br><span class="th-normal">Average: </span><span
                                                 id="sbac-avg-math_scale-11"><em>N/A</em></span>
                                         </th>
+                                        <th>ELA Scale
+                                            <span class="sparklines-box"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'ela_scale')}}"></span>
+                                            <br><span class="th-normal">Average: </span><span
+                                                id="sbac-avg-ela_scale-11"><em>N/A</em></span>
+                                        </th>
+                                        <th>Reading
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'reading')}}"></span>
+                                        </th>
+                                        <th>Writing
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'writing')}}"></span>
+                                        </th>
+                                        <th>Listening
+                                            <span class="sparklines-pie"
+                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'listening')}}"></span>
+                                        </th>
                                         <th>Communicating and Reasoning
                                             <span class="sparklines-pie"
                                                   values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'ela_level')}}"></span>
@@ -204,27 +223,9 @@
                                             <span class="sparklines-pie"
                                                   values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'modeling')}}"></span>
                                         </th>
-                                        <th>ELA Scale
-                                            <span class="sparklines-box"
-                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'ela_scale')}}"></span>
-                                            <br><span class="th-normal">Average: </span><span
-                                                id="sbac-avg-ela_scale-11"><em>N/A</em></span>
-                                        </th>
                                         <th>Inquiry
                                             <span class="sparklines-pie"
                                                   values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'inquiry')}}"></span>
-                                        </th>
-                                        <th>Listening
-                                            <span class="sparklines-pie"
-                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'listening')}}"></span>
-                                        </th>
-                                        <th>Reading
-                                            <span class="sparklines-pie"
-                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'reading')}}"></span>
-                                        </th>
-                                        <th>Writing
-                                            <span class="sparklines-pie"
-                                                  values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'writing')}}"></span>
                                         </th>
                                     </tr>
                                     </thead>
@@ -233,12 +234,31 @@
                                         <tr>
                                             <td>{{ $score->last_name }}</td>
                                             <td>{{ $score->first_name }}</td>
+                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('ela_level') ?? -1) }}"
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="ela_scale,ela_level"> {!! $score->ela_scale ?? "<em>No Score</em>" !!}
+                                                <hr style="margin:5px 0">
+                                                {!! $score->ela_level !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('math_level') ?? -1) }}"
                                                 data-grade="8"
                                                 data-ssid="{{ $score->ssid }}"
                                                 data-fields="math_scale,math_level">{!! $score->math_scale ?? "<em>No Score</em>" !!}
                                                 <hr style="margin:5px 0">
                                                 {!! $score->math_level !!}</td>
+                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('reading') ?? -1) }}"
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="reading">{!! $score->reading !!}</td>
+                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('writing') ?? -1) }}"
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="writing">{!! $score->writing !!}</td>
+                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('listening') ?? -1) }}"
+                                                data-grade="8"
+                                                data-ssid="{{ $score->ssid }}"
+                                                data-fields="listening">
+                                                {!! $score->listening !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('reasoning') ?? -1) }}"
                                                 data-toggle="popover" data-title="Result in SBAC 8"
                                                 data-grade="8"
@@ -252,30 +272,11 @@
                                                 data-grade="8"
                                                 data-ssid="{{ $score->ssid }}"
                                                 data-fields="modeling"> {!! $score->modeling !!}</td>
-                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('ela_level') ?? -1) }}"
-                                                data-grade="8"
-                                                data-ssid="{{ $score->ssid }}"
-                                                data-fields="ela_scale,ela_level"> {!! $score->ela_scale ?? "<em>No Score</em>" !!}
-                                                <hr style="margin:5px 0">
-                                                {!! $score->ela_level !!}</td>
                                             <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('inquiry') ?? -1) }}"
                                                 data-grade="8"
                                                 data-ssid="{{ $score->ssid }}"
                                                 data-fields="inquiry">
                                                 {!! $score->inquiry !!}</td>
-                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('listening') ?? -1) }}"
-                                                data-grade="8"
-                                                data-ssid="{{ $score->ssid }}"
-                                                data-fields="listening">
-                                                {!! $score->listening !!}</td>
-                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('reading') ?? -1) }}"
-                                                data-grade="8"
-                                                data-ssid="{{ $score->ssid }}"
-                                                data-fields="reading">{!! $score->reading !!}</td>
-                                            <td class="{{ \App\Helpers\SBACDataHelper::getColorFromInt($score->getOriginal('writing') ?? -1) }}"
-                                                data-grade="8"
-                                                data-ssid="{{ $score->ssid }}"
-                                                data-fields="writing">{!! $score->writing !!}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -445,21 +446,19 @@
                                                             <div class="form-check">
                                                                 @php $id = abs(crc32(uniqid())) @endphp
                                                                 <input class="form-check-input" type="checkbox"
-                                                                       value="reasoning"
-                                                                       id="reasoning-{{$id}}">
-                                                                <label class="form-check-label" for="reasoning-{{$id}}">
-                                                                    <span rel="tooltip"
-                                                                          title="Communicating and Reasoning">Reasoning</span>
-                                                                    <span id="sl-reasoning-1"></span>
+                                                                       value="ela_scale"
+                                                                       id="elascale-{{$id}}" checked>
+                                                                <label class="form-check-label" for="elascale-{{$id}}">
+                                                                    ELA Scale <span id="sl-ela_scale-1"></span>
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
+                                                                @php $id = abs(crc32(uniqid())) @endphp
                                                                 <input class="form-check-input" type="checkbox"
-                                                                       value="concepts"
-                                                                       id="concepts-{{$id}}">
-                                                                <label class="form-check-label" for="concepts-{{$id}}">
-                                                                    <span rel="tooltip" title="Concepts/Procedures">Concepts</span>
-                                                                    <span id="sl-concepts-1"></span>
+                                                                       value="ela_level"
+                                                                       id="elalevel-{{$id}}" checked>
+                                                                <label class="form-check-label" for="elalevel-{{$id}}">
+                                                                    ELA Level <span id="sl-ela_level-1"></span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -478,19 +477,21 @@
                                                             <div class="form-check">
                                                                 @php $id = abs(crc32(uniqid())) @endphp
                                                                 <input class="form-check-input" type="checkbox"
-                                                                       value="ela_scale"
-                                                                       id="elascale-{{$id}}" checked>
-                                                                <label class="form-check-label" for="elascale-{{$id}}">
-                                                                    ELA Scale <span id="sl-ela_scale-1"></span>
+                                                                       value="reasoning"
+                                                                       id="reasoning-{{$id}}">
+                                                                <label class="form-check-label" for="reasoning-{{$id}}">
+                                                                    <span rel="tooltip"
+                                                                          title="Communicating and Reasoning">Reasoning</span>
+                                                                    <span id="sl-reasoning-1"></span>
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
-                                                                @php $id = abs(crc32(uniqid())) @endphp
                                                                 <input class="form-check-input" type="checkbox"
-                                                                       value="ela_level"
-                                                                       id="elalevel-{{$id}}" checked>
-                                                                <label class="form-check-label" for="elalevel-{{$id}}">
-                                                                    ELA Level <span id="sl-ela_level-1"></span>
+                                                                       value="concepts"
+                                                                       id="concepts-{{$id}}">
+                                                                <label class="form-check-label" for="concepts-{{$id}}">
+                                                                    <span rel="tooltip" title="Concepts/Procedures">Concepts</span>
+                                                                    <span id="sl-concepts-1"></span>
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
@@ -581,11 +582,11 @@
                                                     <th>First Name</th>
                                                     <th>Math Scale</th>
                                                     <th>Math Level</th>
-                                                    <th>Communicating and Reasoning</th>
-                                                    <th>Concepts and Procedures</th>
-                                                    <th>Problem Solving and Modeling</th>
                                                     <th>ELA Scale</th>
                                                     <th>ELA Level</th>
+                                                    <th>Problem Solving and Modeling</th>
+                                                    <th>Communicating and Reasoning</th>
+                                                    <th>Concepts and Procedures</th>
                                                     <th>Inquiry</th>
                                                     <th>Listening</th>
                                                     <th>Reading</th>
@@ -701,24 +702,21 @@
                                                             <div class="form-check">
                                                                 @php $id = abs(crc32(uniqid())) @endphp
                                                                 <input class="form-check-input" type="checkbox"
-                                                                       value="reasoning"
-                                                                       id="reasoning-{{$id}}">
+                                                                       value="ela_scale"
+                                                                       id="elascale-{{$id}}" checked>
                                                                 <label class="form-check-label"
-                                                                       for="reasoning-{{$id}}">
-                                                                    <span rel="tooltip"
-                                                                          title="Communicating and Reasoning">Reasoning</span>
-                                                                    <span id="sl-reasoning-2"></span>
+                                                                       for="elascale-{{$id}}">
+                                                                    ELA Scale <span id="sl-ela_scale-2"></span>
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
+                                                                @php $id = abs(crc32(uniqid())) @endphp
                                                                 <input class="form-check-input" type="checkbox"
-                                                                       value="concepts"
-                                                                       id="concepts-{{$id}}">
+                                                                       value="ela_level"
+                                                                       id="elalevel-{{$id}}" checked>
                                                                 <label class="form-check-label"
-                                                                       for="concepts-{{$id}}">
-                                                                            <span rel="tooltip"
-                                                                                  title="Concepts/Procedures">Concepts</span>
-                                                                    <span id="sl-concepts-2"></span>
+                                                                       for="elalevel-{{$id}}">
+                                                                    ELA Level <span id="sl-ela_level-2"></span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -738,21 +736,24 @@
                                                             <div class="form-check">
                                                                 @php $id = abs(crc32(uniqid())) @endphp
                                                                 <input class="form-check-input" type="checkbox"
-                                                                       value="ela_scale"
-                                                                       id="elascale-{{$id}}" checked>
+                                                                       value="reasoning"
+                                                                       id="reasoning-{{$id}}">
                                                                 <label class="form-check-label"
-                                                                       for="elascale-{{$id}}">
-                                                                    ELA Scale <span id="sl-ela_scale-2"></span>
+                                                                       for="reasoning-{{$id}}">
+                                                                    <span rel="tooltip"
+                                                                          title="Communicating and Reasoning">Reasoning</span>
+                                                                    <span id="sl-reasoning-2"></span>
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
-                                                                @php $id = abs(crc32(uniqid())) @endphp
                                                                 <input class="form-check-input" type="checkbox"
-                                                                       value="ela_level"
-                                                                       id="elalevel-{{$id}}" checked>
+                                                                       value="concepts"
+                                                                       id="concepts-{{$id}}">
                                                                 <label class="form-check-label"
-                                                                       for="elalevel-{{$id}}">
-                                                                    ELA Level <span id="sl-ela_level-2"></span>
+                                                                       for="concepts-{{$id}}">
+                                                                            <span rel="tooltip"
+                                                                                  title="Concepts/Procedures">Concepts</span>
+                                                                    <span id="sl-concepts-2"></span>
                                                                 </label>
                                                             </div>
                                                             <div class="form-check">
@@ -847,11 +848,11 @@
                                                     <th>First Name</th>
                                                     <th>Math Scale</th>
                                                     <th>Math Level</th>
-                                                    <th>Communicating and Reasoning</th>
-                                                    <th>Concepts and Procedures</th>
-                                                    <th>Problem Solving and Modeling</th>
                                                     <th>ELA Scale</th>
                                                     <th>ELA Level</th>
+                                                    <th>Problem Solving and Modeling</th>
+                                                    <th>Communicating and Reasoning</th>
+                                                    <th>Concepts and Procedures</th>
                                                     <th>Inquiry</th>
                                                     <th>Listening</th>
                                                     <th>Reading</th>

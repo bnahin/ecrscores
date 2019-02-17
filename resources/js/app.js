@@ -44,9 +44,10 @@ $(function () {
           loadSBACAverages(course)
           sbacLoaded = true
         }
-      }
+      },
+      lengthMenu  : [10, 20, 30, 50],
+      fixedHeader : true
     })
-    loadSBACAverages(course)
     $('.select2-course').select2({
       templateSelection: course => course.element.dataset.label
     }).on('select2:select', function (e) {
@@ -114,6 +115,7 @@ $(function () {
         processing : true,
         responsive : true,
         columns    : columns,
+        lengthMenu : [10, 20, 30, 50],
         rowCallback: (r, d) => compareTableColors(r, d, type),
         ajax       : {
           type: 'POST',
