@@ -32,14 +32,21 @@ let CompareTableHelper = {
 }
 $(function () {
   if ($('.compare-table').length) {
-    let dataTable
+    let dataTable, sbacLoaded = false
     $('.compare-select').val(null).trigger('change')
     //TODO Custom Column Visibility
     $('.static-table').DataTable({
       drawCallback: (e) => {
         $('#' + e.sTableId + '-load').remove()
+        let course = $('#psat11-course').val()
+        loadPSATAverages(course, $('#past11-exam').val(), null, true)
+        if (!sbacLoaded) {
+          loadSBACAverages(course)
+          sbacLoaded = true
+        }
       }
     })
+    loadSBACAverages(course)
     $('.select2-course').select2({
       templateSelection: course => course.element.dataset.label
     }).on('select2:select', function (e) {
@@ -60,7 +67,7 @@ $(function () {
 
     function loadData (col) {
       destroyTable(col)
-      console.log('Loading data to ' + col)
+      //console.log('Loading data to ' + col)
 
       //Get selected values
       let exam   = $('#examselect-' + col).find(':selected').val(),
@@ -68,11 +75,12 @@ $(function () {
       if (!exam.length || !course.length) return null
 
       //Get type
-      let type      = exam.split('-')[0],
-          table     = $('#' + type + '-compare-' + col),
-          filterBox = $('#filter-box-' + col),
-          columns   = []
-      console.log(type) //SBAC|PSAT|...
+      let type        = exam.split('-')[0],
+          table       = $('#' + type + '-compare-' + col),
+          filterBox   = $('#filter-box-' + col),
+          sbacStatBox = $('#column-box-' + col),
+          columns     = []
+      //console.log(type) //SBAC|PSAT|...
 
       //Show and Initialize data table, with AJAX
       if (type === 'psat') {
@@ -84,7 +92,9 @@ $(function () {
           {name: 'total'}
         ]
         filterBox.hide()
+        sbacStatBox.show()
       } else {
+        sbacStatBox.hide()
         filterBox.show()
         let i = 2
         let checkboxes = filterBox.find('input:checkbox'),
@@ -115,6 +125,7 @@ $(function () {
         }
       })
       loadCompareSparklines(course, exam, col)
+      loadPSATAverages(course, exam, col)
 
       /** Sparkline Graphs **/
       function loadCompareSparklines (c, e, col) {
@@ -151,6 +162,7 @@ $(function () {
           }
         )
       }
+
     }
 
     function destroyTable (col) {
@@ -173,6 +185,42 @@ $(function () {
 
         })
       }
+    }
+
+    /** Averages **/
+    function loadPSATAverages (c, e, col, th) {
+      $.post('/ajax/getPSATAverages', {
+        course: c,
+        exam  : e
+      }, function (result) {
+        for (let field in result) {
+          if (result.hasOwnProperty(field)) {
+            let selector = '#'
+            if (th) selector += 'th-'
+            selector += 'avg-' + field
+            if (!th && col) selector += '-' + col
+
+            $(selector).html(result[field])
+          }
+        }
+      })
+    }
+
+    function loadSBACAverages (c) {
+      $.post('/ajax/getSBACAverages', {
+        course: c
+      }, function (result) {
+        for (let grade in result) {
+          if (result.hasOwnProperty(grade)) {
+            for (let field in result[grade]) {
+              if (result[grade].hasOwnProperty(field)) {
+                let selector = '#sbac-avg-' + field + '-' + grade
+                $(selector).html(result[grade][field])
+              }
+            }
+          }
+        }
+      })
     }
 
     /** Filter Boxes **/

@@ -143,14 +143,23 @@ class AjaxController extends Controller
         }
 
         $return = ['box' => [], 'pie' => []];
-        foreach (DB::getSchemaBuilder()->getColumnListing('sbac_data') as $field) {
+        foreach (DB::getSchemaBuilder()->getColumnListing("{$examType}_data") as $field) {
             if (in_array($field,
-                ['id', 'teacher', 'fname',
-                    'lname', 'ssid', 'course', 'grade',
-                    'created_at', 'updated_at', 'year'])) {
+                [
+                    'id',
+                    'teacher',
+                    'fname',
+                    'lname',
+                    'ssid',
+                    'course',
+                    'grade',
+                    'created_at',
+                    'updated_at',
+                    'year'
+                ])) {
                 continue;
             }
-            if (in_array($field, ['math_scale', 'ela_scale'])) {
+            if (in_array($field, ['math_scale', 'ela_scale', 'readwrite', 'math', 'total'])) {
                 $type = 'box';
             } else {
                 $type = 'pie';
@@ -159,5 +168,101 @@ class AjaxController extends Controller
         }
 
         return $return;
+    }
+
+    /**
+     * Get PSAT averages for <th>
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function getPSATAverages(Request $request)
+    {
+        $request->validate([
+            'course' => 'required',
+            'exam'   => 'required'
+        ]);
+        if (!CourseHelper::validCourseData($request->course)) {
+            abort(400, "Malformed request");
+        }
+        $course = explode('.', Helper::base64url_decode($request->course));
+        $exam = explode('-', $request->exam);
+        if (count($course) !== 2) {
+            abort(400, "Malformed request. Course.");
+        }
+        $courseYear = $course[0];
+        $courseName = $course[1];
+
+        if (count($exam) !== 2) {
+            abort("Malformed request. Exam.");
+        }
+        $examYear = $exam[1];
+
+        $data = Auth::user()->psatStudents()->where('year', $courseYear)
+            ->where('grade', $examYear)->where('course', $courseName);
+        if (!$data->exists()) {
+            return "<em>N/A</em>";
+        }
+
+        return response()->json([
+            'readwrite' => number_format(round($data->pluck('readwrite')->avg())),
+            'math'      => number_format(round($data->pluck('math')->avg())),
+            'total'     => number_format(round($data->pluck('total')->avg()))
+        ]);
+    }
+
+    /**
+     * Get SBAC averages for <th>
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function getSBACAverages(Request $request)
+    {
+        $request->validate([
+            'course' => 'required'
+        ]);
+        if (!CourseHelper::validCourseData($request->course)) {
+            abort(400, "Malformed request");
+        }
+
+        $course = explode('.', Helper::base64url_decode($request->course));
+        if (count($course) !== 2) {
+            abort(400, "Malformed request. Course.");
+        }
+        $courseYear = $course[0];
+        $courseName = $course[1];
+
+        $data8 = Auth::user()->sbacStudents()
+            ->where('year', $courseYear)
+            ->where('course', $courseName)
+            ->where('grade', 8);
+        $data11 = Auth::user()->sbacStudents()
+            ->where('year', $courseYear)
+            ->where('course', $courseName)
+            ->where('grade', 11);
+        if (!$data8->exists()) {
+            $data8 = null;
+        }
+        if (!$data11->exists()) {
+            $data11 = null;
+        }
+
+        return response()->json([
+            8  => ($data8) ? [
+                'math_scale' => number_format(round($data8
+                    ->pluck('math_scale')->avg())),
+                'ela_scale'  => number_format(round($data8
+                    ->pluck('ela_scale')->avg()))
+            ] : [],
+            11 => ($data11) ? [
+                'math_scale' => number_format(round($data11
+                    ->pluck('math_scale')->avg())),
+                'ela_scale'  => number_format(round($data11
+                    ->pluck('ela_scale')->avg())),
+            ] : []
+        ]);
     }
 }

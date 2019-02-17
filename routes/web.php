@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::post('/ajax/getTableData', 'AjaxController@getTableData');
 Route::post('/ajax/getCellData', 'AjaxController@getCellData');
 Route::post('/ajax/getSparklines', 'AjaxController@getAllSparklines');
+Route::post('/ajax/getPSATAverages', 'AjaxController@getPSATAverages');
+Route::post('/ajax/getSBACAverages', 'AjaxController@getSBACAverages');
 
 /** Homepage Charts */
 Route::get('/ajax/getLevels/{level}', 'ChartsController@getLevels');

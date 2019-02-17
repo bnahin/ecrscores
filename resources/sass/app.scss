@@ -57,6 +57,10 @@
       font-weight: initial;
     }
   }
+
+  .column-box-container p {
+    text-align: center;
+  }
 }
 
 .compare-table {
@@ -70,4 +74,9 @@
 
 .tab-loading {
   text-align: center;
+}
+
+/** Misc **/
+.th-normal {
+  font-weight: normal;
 }
