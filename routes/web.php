@@ -18,7 +18,7 @@ Route::get('/oauth-callback', 'GoogleAuthController@handle')->name('oauth-callba
 /** Logout */
 Route::get('/logout', 'SessionController@logout')->name('logout')->middleware('auth');
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'ViewController@index')->name('home');
     Route::get('/view/{data}', 'ViewController@course')->name('view-course');
 });
@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function() {
 /** AJAX */
 Route::post('/ajax/getTableData', 'AjaxController@getTableData');
 Route::post('/ajax/getCellData', 'AjaxController@getCellData');
+Route::post('/ajax/getSparklines', 'AjaxController@getAllSparklines');
+
 /** Homepage Charts */
 Route::get('/ajax/getLevels/{level}', 'ChartsController@getLevels');
 Route::get('/ajax/getAverages/{exam}', 'ChartsController@getAverages');

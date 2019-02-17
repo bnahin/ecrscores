@@ -114,6 +114,43 @@ $(function () {
           }
         }
       })
+      loadCompareSparklines(course, exam, col)
+
+      /** Sparkline Graphs **/
+      function loadCompareSparklines (c, e, col) {
+        $.post('/ajax/getSparklines',
+          {
+            course: c,
+            exam  : e
+          }, result => {
+            for (let chartType in result) {
+              if (result.hasOwnProperty(chartType)) {
+                for (let field in result[chartType]) {
+                  if (result[chartType].hasOwnProperty(field)) {
+                    if (chartType === 'box')
+                      $('#sl-' + field + '-' + col).sparkline(result[chartType][field].split(','), {type: 'box'})
+                    else if (chartType === 'pie')
+                      $('#sl-' + field + '-' + col).sparkline(result[chartType][field].split(','), {
+                        type               : 'pie',
+                        sliceColors        : ['gray', 'red', 'yellow', 'lightgreen', 'darkgreen'],
+                        tooltipFormat      : '{{offset:offset}} ({{percent.1}}%)',
+                        tooltipValueLookups: {
+                          'offset': {
+                            0: 'No Score',
+                            1: 'Standard Not Met',
+                            2: 'Near Standard',
+                            3: 'Standard Met',
+                            4: 'Standard Exceeded'
+                          }
+                        },
+                      })
+                  }
+                }
+              }
+            }
+          }
+        )
+      }
     }
 
     function destroyTable (col) {
@@ -142,7 +179,9 @@ $(function () {
     $('.filter-box').find('input:checkbox').change(function () {
       let table = $('#' + $(this).parents('.filter-box-container').data('controls'))
       table.DataTable().column($(this).val() + ':name').visible($(this).prop('checked'))
+      table.DataTable().columns.adjust().draw()
     })
+
   }
 })
 

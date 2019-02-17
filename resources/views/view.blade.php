@@ -402,161 +402,428 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="filter-box-1" data-controls="sbac-compare-1" class="filter-box-container" style="display: none;">
-                                            @include('partials.filterbox')
+                                        <!--SBAC Filter Box -->
+                                        <div id="filter-box-1" data-controls="sbac-compare-1"
+                                             class="filter-box-container" style="display: none;">
+                                            <div class="box filter-box">
+                                                <div class="box-body">
+                                                    <h4>Filter Columns</h4>
+                                                    <div class="row filter-row">
+                                                        <div class="col-xs-4">
+                                                            <div class="form-check">
+                                                                @php $id = abs(crc32( uniqid())) @endphp
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="math_scale"
+                                                                       id="mathscale-{{$id}}" checked>
+                                                                <label class="form-check-label" for="mathscale-{{$id}}">
+                                                                    Math Scale <span id="sl-math_scale-1"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                @php $id = abs(crc32(uniqid())) @endphp
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="math_level"
+                                                                       id="mathlevel-{{$id}}" checked>
+                                                                <label class="form-check-label" for="mathlevel-{{$id}}">
+                                                                    Math Level <span id="sl-math_level-1"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                @php $id = abs(crc32(uniqid())) @endphp
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="reasoning"
+                                                                       id="reasoning-{{$id}}">
+                                                                <label class="form-check-label" for="reasoning-{{$id}}">
+                                                                    <span rel="tooltip"
+                                                                          title="Communicating and Reasoning">Reasoning</span>
+                                                                    <span id="sl-reasoning-1"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="concepts"
+                                                                       id="concepts-{{$id}}">
+                                                                <label class="form-check-label" for="concepts-{{$id}}">
+                                                                    <span rel="tooltip" title="Concepts/Procedures">Concepts</span>
+                                                                    <span id="sl-concepts-1"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <div class="form-check">
+                                                                @php $id = abs(crc32(uniqid())) @endphp
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="modeling"
+                                                                       id="modeling-{{$id}}">
+                                                                <label class="form-check-label" for="modeling-{{$id}}">
+                                                                    <span rel="tooltip"
+                                                                          title="Problem Solving and Modeling">Problem Solving</span>
+                                                                    <span id="sl-modeling-1"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                @php $id = abs(crc32(uniqid())) @endphp
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="ela_scale"
+                                                                       id="elascale-{{$id}}" checked>
+                                                                <label class="form-check-label" for="elascale-{{$id}}">
+                                                                    ELA Scale <span id="sl-ela_scale-1"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                @php $id = abs(crc32(uniqid())) @endphp
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="ela_level"
+                                                                       id="elalevel-{{$id}}" checked>
+                                                                <label class="form-check-label" for="elalevel-{{$id}}">
+                                                                    ELA Level <span id="sl-ela_level-1"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                @php $id = abs(crc32(uniqid())) @endphp
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="inquiry"
+                                                                       id="inquiry-{{$id}}">
+                                                                <label class="form-check-label" for="inquiry-{{$id}}">
+                                                                    Inquiry <span id="sl-inquiry-1"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            @php $id = abs(crc32(uniqid())) @endphp
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="listening"
+                                                                       id="listening-{{$id}}">
+                                                                <label class="form-check-label" for="listening-{{$id}}">
+                                                                    Listening <span id="sl-listening-1"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                @php $id = abs(crc32(uniqid())) @endphp
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="reading"
+                                                                       id="reading-{{$id}}">
+                                                                <label class="form-check-label" for="reading-{{$id}}">
+                                                                    Reading <span id="sl-reading-1"></span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                @php $id = abs(crc32(uniqid())) @endphp
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       value="writing"
+                                                                       id="writing-{{$id}}">
+                                                                <label class="form-check-label" for="writing-{{$id}}">
+                                                                    Writing <span id="sl-writing-1"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <!--PSAT Column Box (not editable) -->
+                                        <!--3 rows: Math, Reading, Total -->
+                                        <!-- Sparkline centered underneath each -->
+                                        <div id="column-box-1" data-controls="psat-compare-1"
+                                             class="filter-box-container" style="display:none">
+                                            <div class="box column-box">
+                                                <div class="box-body">
+                                                    <h4>Column Details</h4>
+                                                    <div class="row column-row">
+                                                        <div class="col-md-4">
 
-                                        <div class="table-responsive">
-                                            <table id="sbac-compare-1"
-                                                   class="table table-bordered table-striped compare-table">
-                                                <thead>
-                                                <tr>
-                                                    <th>Last Name</th>
-                                                    <th>First Name</th>
-                                                    <th>Math Scale</th>
-                                                    <th>Math Level</th>
-                                                    <th>Communicating and Reasoning</th>
-                                                    <th>Concepts and Procedures</th>
-                                                    <th>Problem Solving and Modeling</th>
-                                                    <th>ELA Scale</th>
-                                                    <th>ELA Level</th>
-                                                    <th>Inquiry</th>
-                                                    <th>Listening</th>
-                                                    <th>Reading</th>
-                                                    <th>Writing</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table id="psat-compare-1"
-                                                   class="table table-bordered table-striped compare-table">
-                                                <thead>
-                                                <tr>
-                                                    <th width="15%">Last Name</th>
-                                                    <th width="15%">First Name</th>
-                                                    <th width="10%">Reading/Writing</th>
-                                                    <th width="10%">Mathematics</th>
-                                                    <th class="success" width="15%">Total</th>
-                                                    <th>Percentiles</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="row compare-row">
-                                            <div class="col-xs-6">
-                                                <label class="control-label" for="courseselect-2">
-                                                    Course:
-                                                </label>
-                                                <br>
-                                                <select class="form-control select2-course compare-select"
-                                                        id="courseselect-2"
-                                                        style="width:100%;">
-                                                    <option value="" data-label="-- Select Course --" data-col="2"
-                                                            selected>-- Select
-                                                        Course --
-                                                    </option>
-                                                    @foreach(Auth::user()->getYears() as $year)
-                                                        <optgroup
-                                                            label=" {{ \App\Helpers\Helper::getFullYearString($year) }}">
-                                                            @foreach(Auth::user()->getCourses($year) as $course)
-                                                                <option
-                                                                    value="{{ \App\Helpers\Helper::base64url_encode("$year.$course") }}"
-                                                                    data-label="[{{\App\Helpers\Helper::getFullYearString($year)}}] {{$course}}"
-                                                                    data-col="2">
-                                                                    {{ $course }}
-                                                                </option>
+                                                        </div>
+                                                        <div class="col-md-4">
+
+                                                        </div>
+                                                        <div class="col-md-4">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table id="sbac-compare-1"
+                                                           class="table table-bordered table-striped compare-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Last Name</th>
+                                                            <th>First Name</th>
+                                                            <th>Math Scale</th>
+                                                            <th>Math Level</th>
+                                                            <th>Communicating and Reasoning</th>
+                                                            <th>Concepts and Procedures</th>
+                                                            <th>Problem Solving and Modeling</th>
+                                                            <th>ELA Scale</th>
+                                                            <th>ELA Level</th>
+                                                            <th>Inquiry</th>
+                                                            <th>Listening</th>
+                                                            <th>Reading</th>
+                                                            <th>Writing</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table id="psat-compare-1"
+                                                           class="table table-bordered table-striped compare-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th width="15%">Last Name</th>
+                                                            <th width="15%">First Name</th>
+                                                            <th width="10%">Reading/Writing</th>
+                                                            <th width="10%">Mathematics</th>
+                                                            <th class="success" width="15%">Total</th>
+                                                            <th>Percentiles</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="row compare-row">
+                                                    <div class="col-xs-6">
+                                                        <label class="control-label" for="courseselect-2">
+                                                            Course:
+                                                        </label>
+                                                        <br>
+                                                        <select class="form-control select2-course compare-select"
+                                                                id="courseselect-2"
+                                                                style="width:100%;">
+                                                            <option value="" data-label="-- Select Course --"
+                                                                    data-col="2"
+                                                                    selected>-- Select
+                                                                Course --
+                                                            </option>
+                                                            @foreach(Auth::user()->getYears() as $year)
+                                                                <optgroup
+                                                                    label=" {{ \App\Helpers\Helper::getFullYearString($year) }}">
+                                                                    @foreach(Auth::user()->getCourses($year) as $course)
+                                                                        <option
+                                                                            value="{{ \App\Helpers\Helper::base64url_encode("$year.$course") }}"
+                                                                            data-label="[{{\App\Helpers\Helper::getFullYearString($year)}}] {{$course}}"
+                                                                            data-col="2">
+                                                                            {{ $course }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </optgroup>
                                                             @endforeach
-                                                        </optgroup>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <label class="control-label" for="examselect-2">
-                                                    Exam:
-                                                </label>
-                                                <br>
-                                                <select class="form-control select2-exam compare-select"
-                                                        id="examselect-2"
-                                                        style="width:100%;">
-                                                    <option value="" data-label="-- Select Exam --" data-col="2"
-                                                            selected>-- Select
-                                                        Exam --
-                                                    </option>
-                                                    <option value="sbac-8"
-                                                            data-col="2">SBAC 8th Grade
-                                                    </option>
-                                                    <option value="sbac-11"
-                                                            data-col="2">SBAC 11th Grade
-                                                    </option>
-                                                    <option value="psat-11"
-                                                            data-col="2">PSAT 11th Grade
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div id="filter-box-2" data-controls="sbac-compare-2" class="filter-box-container" style="display: none;">
-                                            @include('partials.filterbox')
-                                        </div>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <label class="control-label" for="examselect-2">
+                                                            Exam:
+                                                        </label>
+                                                        <br>
+                                                        <select class="form-control select2-exam compare-select"
+                                                                id="examselect-2"
+                                                                style="width:100%;">
+                                                            <option value="" data-label="-- Select Exam --" data-col="2"
+                                                                    selected>-- Select
+                                                                Exam --
+                                                            </option>
+                                                            <option value="sbac-8"
+                                                                    data-col="2">SBAC 8th Grade
+                                                            </option>
+                                                            <option value="sbac-11"
+                                                                    data-col="2">SBAC 11th Grade
+                                                            </option>
+                                                            <option value="psat-11"
+                                                                    data-col="2">PSAT 11th Grade
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div id="filter-box-2" data-controls="sbac-compare-2"
+                                                     class="filter-box-container" style="display: none;">
+                                                    <div class="box filter-box">
+                                                        <div class="box-body">
+                                                            <h4>Filter Columns</h4>
+                                                            <div class="row filter-row">
+                                                                <div class="col-xs-4">
+                                                                    <div class="form-check">
+                                                                        @php $id = abs(crc32( uniqid())) @endphp
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="math_scale"
+                                                                               id="mathscale-{{$id}}" checked>
+                                                                        <label class="form-check-label"
+                                                                               for="mathscale-{{$id}}">
+                                                                            Math Scale <span
+                                                                                id="sl-math_scale-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        @php $id = abs(crc32(uniqid())) @endphp
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="math_level"
+                                                                               id="mathlevel-{{$id}}" checked>
+                                                                        <label class="form-check-label"
+                                                                               for="mathlevel-{{$id}}">
+                                                                            Math Level <span
+                                                                                id="sl-math_level-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        @php $id = abs(crc32(uniqid())) @endphp
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="reasoning"
+                                                                               id="reasoning-{{$id}}">
+                                                                        <label class="form-check-label"
+                                                                               for="reasoning-{{$id}}">
+                                                                    <span rel="tooltip"
+                                                                          title="Communicating and Reasoning">Reasoning</span>
+                                                                            <span id="sl-reasoning-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="concepts"
+                                                                               id="concepts-{{$id}}">
+                                                                        <label class="form-check-label"
+                                                                               for="concepts-{{$id}}">
+                                                                            <span rel="tooltip"
+                                                                                  title="Concepts/Procedures">Concepts</span>
+                                                                            <span id="sl-concepts-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-4">
+                                                                    <div class="form-check">
+                                                                        @php $id = abs(crc32(uniqid())) @endphp
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="modeling"
+                                                                               id="modeling-{{$id}}">
+                                                                        <label class="form-check-label"
+                                                                               for="modeling-{{$id}}">
+                                                                    <span rel="tooltip"
+                                                                          title="Problem Solving and Modeling"> Problem Solving</span>
+                                                                            <span id="sl-modeling-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        @php $id = abs(crc32(uniqid())) @endphp
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="ela_scale"
+                                                                               id="elascale-{{$id}}" checked>
+                                                                        <label class="form-check-label"
+                                                                               for="elascale-{{$id}}">
+                                                                            ELA Scale <span id="sl-ela_scale-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        @php $id = abs(crc32(uniqid())) @endphp
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="ela_level"
+                                                                               id="elalevel-{{$id}}" checked>
+                                                                        <label class="form-check-label"
+                                                                               for="elalevel-{{$id}}">
+                                                                            ELA Level <span id="sl-ela_level-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        @php $id = abs(crc32(uniqid())) @endphp
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="inquiry"
+                                                                               id="inquiry-{{$id}}">
+                                                                        <label class="form-check-label"
+                                                                               for="inquiry-{{$id}}">
+                                                                            Inquiry <span id="sl-inquiry-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-4">
+                                                                    @php $id = abs(crc32(uniqid())) @endphp
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="listening"
+                                                                               id="listening-{{$id}}">
+                                                                        <label class="form-check-label"
+                                                                               for="listening-{{$id}}">
+                                                                            Listening <span id="sl-listening-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        @php $id = abs(crc32(uniqid())) @endphp
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="reading"
+                                                                               id="reading-{{$id}}">
+                                                                        <label class="form-check-label"
+                                                                               for="reading-{{$id}}">
+                                                                            Reading <span id="sl-reading-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        @php $id = abs(crc32(uniqid())) @endphp
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                               value="writing"
+                                                                               id="writing-{{$id}}">
+                                                                        <label class="form-check-label"
+                                                                               for="writing-{{$id}}">
+                                                                            Writing <span id="sl-writing-2"></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                        <div class="table-responsive">
-                                            <table id="sbac-compare-2"
-                                                   class="table table-bordered table-striped compare-table">
-                                                <thead>
-                                                <tr>
-                                                    <th>Last Name</th>
-                                                    <th>First Name</th>
-                                                    <th>Math Scale</th>
-                                                    <th>Math Level</th>
-                                                    <th>Communicating and Reasoning</th>
-                                                    <th>Concepts and Procedures</th>
-                                                    <th>Problem Solving and Modeling</th>
-                                                    <th>ELA Scale</th>
-                                                    <th>ELA Level</th>
-                                                    <th>Inquiry</th>
-                                                    <th>Listening</th>
-                                                    <th>Reading</th>
-                                                    <th>Writing</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table id="psat-compare-2"
-                                                   class="table table-bordered table-striped compare-table">
-                                                <thead>
-                                                <tr>
-                                                    <th width="15%">Last Name</th>
-                                                    <th width="15%">First Name</th>
-                                                    <th width="10%">Reading/Writing</th>
-                                                    <th width="10%">Mathematics</th>
-                                                    <th class="success" width="15%">Total</th>
-                                                    <th>Percentiles</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
+                                                <div class="table-responsive">
+                                                    <table id="sbac-compare-2"
+                                                           class="table table-bordered table-striped compare-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Last Name</th>
+                                                            <th>First Name</th>
+                                                            <th>Math Scale</th>
+                                                            <th>Math Level</th>
+                                                            <th>Communicating and Reasoning</th>
+                                                            <th>Concepts and Procedures</th>
+                                                            <th>Problem Solving and Modeling</th>
+                                                            <th>ELA Scale</th>
+                                                            <th>ELA Level</th>
+                                                            <th>Inquiry</th>
+                                                            <th>Listening</th>
+                                                            <th>Reading</th>
+                                                            <th>Writing</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="table-responsive">
+                                                    <table id="psat-compare-2"
+                                                           class="table table-bordered table-striped compare-table">
+                                                        <thead>
+                                                        <tr>
+                                                            <th width="15%">Last Name</th>
+                                                            <th width="15%">First Name</th>
+                                                            <th width="10%">Reading/Writing</th>
+                                                            <th width="10%">Mathematics</th>
+                                                            <th class="success" width="15%">Total</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- /.tab-pane -->
                             </div>
+                            <!-- /.tab-content -->
                         </div>
-                        <!-- /.tab-pane -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.tab-content -->
+                    <!-- /.col -->
                 </div>
-                <!-- /.box -->
             </div>
-            <!-- /.col -->
-        </div>
-    </div>
 @endsection

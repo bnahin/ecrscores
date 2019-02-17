@@ -42,17 +42,23 @@ class Helper
         return Cache::has('datasync');
     }
 
-    public static function formatForSparkline(Collection $collection, string $field)
+    /**
+     * @param \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection $collection
+     * @param string                                                                  $field
+     *
+     * @return string
+     */
+    public static function formatForSparkline($collection, string $field)
     {
         $string = $collection->pluck($field)->map(function ($value) {
             $int = $value;
-            if (!filter_var($int, FILTER_VALIDATE_INT)) {
+            if (!filter_var($int, FILTER_VALIDATE_INT) && $int) {
                 $int = SBACDataHelper::getIntFromLevel($int);
             }
 
             return $int;
         })->reject(function ($value) {
-            //return $value < 0;
+            return is_null($value);
         })->implode(',');
 
         if (!str_contains($field, 'scale') &&
