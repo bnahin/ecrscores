@@ -472,3 +472,20 @@ $(function () {
   /** Timeout Loading **/
   setTimeout(() => $('.overlay').find('.fa').removeClass('fa-spinner fa-spin').addClass('fa-remove'), 15000)
 })
+
+/** Welcome Alert **/
+$(function () {
+//Display only on first visit
+  if (Cookies.get('firstvisit') !== undefined) return null
+  let content = document.createElement('div')
+  content.innerHTML = `Welcome to the ECRCHS Scores Interface.
+  You can use this app to retrieve and analyze student scrores from SBAC 8/11 and PSAT 11.
+  Contact Blake Nahin, <a href="mailto:115602@ecrchs.org">115602@ecrchs.org</a>, 
+  with questions, bugs, or feature requests.`
+  swal({
+    title  : 'Welcome!',
+    icon   : 'info',
+    content: content
+  })
+  Cookies.set('firstvisit', true, {expires: 365})
+})

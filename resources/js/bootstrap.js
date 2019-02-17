@@ -86,3 +86,6 @@ Array.matrix = function (numrows, numcols, initial) {
   }
   return arr
 }
+
+/** Package Imports **/
+import swal from 'sweetalert'
