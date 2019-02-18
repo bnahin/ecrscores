@@ -7,12 +7,27 @@
 namespace App\Helpers;
 
 
+use App\PSAT;
+use App\SBAC;
 use Illuminate\Support\Facades\Auth;
 
-class AuthHelper
+final class AuthHelper
 {
     public static function countStudents()
     {
         return Auth::user()->getStudents();
+    }
+
+    /**
+     * Get teachers.
+     */
+    public static function getTeachers()
+    {
+        $sbacTeachers = SBAC::groupBy('teacher')->orderBy('teacher')->pluck('teacher');
+        $psatTeachers = PSAT::groupBy('teacher')->orderBy('teacher')->pluck('teacher');
+
+        $teachers = $sbacTeachers->flip()->merge($psatTeachers->flip())->flip(); //Combine collections
+
+        return $teachers;
     }
 }

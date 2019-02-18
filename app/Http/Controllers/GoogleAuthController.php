@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Common\Bnahin\EcrchsServices,
     Laravel\Socialite\Facades\Socialite,
     Illuminate\Support\Facades\Auth,
     Illuminate\Support\Facades\App;
 use App\User;
+use Illuminate\Support\Facades\Session;
 
 class GoogleAuthController extends Controller
 {
@@ -34,12 +36,20 @@ class GoogleAuthController extends Controller
      */
     public function handle()
     {
-        if(app()->isLocal()) {
-            Auth::login(User::where('email', 's.bahri@ecrchs.net')->first());
+        if (app()->isLocal()) {
+            Session::put('admin-select', 'Local Development');
 
-            return redirect()->route('home');
+            return redirect()->route('admin-select');
         }
+
         $apiUser = $this->api->getUser();
+
+        $admin = Admin::where('email', $apiUser->email);
+        if ($admin->exists()) {
+            Session::put('admin-select', $admin->first()->full_name);
+
+            return redirect()->route('admin-select');
+        }
 
         $user = User::where('email', $apiUser->email);
         if ($user->exists()) {

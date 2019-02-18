@@ -21,7 +21,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             @if(\App\Helpers\Helper::inSync())
-                @include('insync')
+                @include('partials.insync')
             @endif
 
             <h1>
@@ -33,7 +33,6 @@
 
         <!-- Main content -->
         <section class="content container-fluid">
-
             @yield('content')
         </section>
     </div>

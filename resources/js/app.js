@@ -313,7 +313,7 @@ $(function () {
 
 /** Homepage Charts **/
 $(function () {
-  if ($('.static-table').length) return null
+  if ($('.static-table').length || $('#admin-select').length) return null
 
   let mathColor = 'rgba(255, 99, 132)',
       elaColor  = 'rgba(153, 102, 255)'
@@ -497,4 +497,12 @@ $(function () {
     content: content
   })
   Cookies.set('firstvisit', true, {expires: 365})
+})
+
+/** Admin Select **/
+$(function () {
+  if ($('#admin-select').length) {
+    let input = $('#admin-select-email')
+    input.select2()
+  }
 })

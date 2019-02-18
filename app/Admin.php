@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Admin
  *
- * @property int $id
- * @property string $fname
- * @property string $lname
- * @property string $email
+ * @property int                             $id
+ * @property string                          $fname
+ * @property string                          $lname
+ * @property string                          $email
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin newModelQuery()
@@ -29,4 +29,9 @@ class Admin extends Model
     protected $guarded = [];
 
     protected $dates = ['created_at', 'updated_at'];
+
+    public function getFullNameAttribute()
+    {
+        return ucwords("{$this->fname} {$this->lname}");
+    }
 }

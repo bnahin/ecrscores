@@ -15,8 +15,12 @@
 Route::get('/login-google', 'GoogleAuthController@redirect')->name('login');
 Route::get('/oauth-callback', 'GoogleAuthController@handle')->name('oauth-callback');
 
+/** Admin Select */
+Route::get('/admin-select', 'AdminController@index')->name('admin-select');
+Route::post('/admin/login', 'AdminController@adminLogin')->name('admin-login');
+
 /** Logout */
-Route::get('/logout', 'SessionController@logout')->name('logout')->middleware('auth');
+Route::get('/logout', 'LoginController@logout')->name('logout')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'ViewController@index')->name('home');
