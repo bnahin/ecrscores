@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //Sync immediately
-        Artisan::call('scores:sync');
+        //Artisan::call('scores:sync');
+        $this->call(AdminTableSeeder::class);
     }
 }
