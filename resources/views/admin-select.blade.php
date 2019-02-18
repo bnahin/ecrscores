@@ -100,4 +100,3 @@
 <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
-@php Session::forget('admin-select') @endphp

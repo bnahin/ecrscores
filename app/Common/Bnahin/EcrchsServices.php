@@ -8,6 +8,7 @@ namespace App\Common\Bnahin;
 
 use App\Imports\PSATImport;
 use App\Imports\SBACImport;
+use App\User;
 use GuzzleHttp\Client;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\App;
@@ -70,6 +71,7 @@ class EcrchsServices
      */
     public function firePython(int $year): string
     {
+        User::truncate(); //Refreshing teacher database
         $python = new Process(["sh {$this->PY_LOC}", $year]);
         try {
             $python->mustRun();

@@ -12,28 +12,36 @@
 */
 
 /** Login */
-Route::get('/login-google', 'GoogleAuthController@redirect')->name('login');
-Route::get('/oauth-callback', 'GoogleAuthController@handle')->name('oauth-callback');
-
-/** Admin Select */
-Route::get('/admin-select', 'AdminController@index')->name('admin-select');
-Route::post('/admin/login', 'AdminController@adminLogin')->name('admin-login');
-
-/** Logout */
-Route::get('/logout', 'LoginController@logout')->name('logout')->middleware('auth');
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', 'ViewController@index')->name('home');
-    Route::get('/view/{data}', 'ViewController@course')->name('view-course');
+Route::middleware('guest')->group(function () {
+    Route::get('/login-google', 'GoogleAuthController@redirect')->name('login');
+    Route::get('/oauth-callback', 'GoogleAuthController@handle')->name('oauth-callback');
 });
 
-/** AJAX */
-Route::post('/ajax/getTableData', 'AjaxController@getTableData');
-Route::post('/ajax/getCellData', 'AjaxController@getCellData');
-Route::post('/ajax/getSparklines', 'AjaxController@getAllSparklines');
-Route::post('/ajax/getPSATAverages', 'AjaxController@getPSATAverages');
-Route::post('/ajax/getSBACAverages', 'AjaxController@getSBACAverages');
+/** Admin Select */
+Route::middleware('admin')->group(function () {
+    Route::get('/admin-select', 'AdminController@index')->name('admin-select');
+    Route::post('/admin/login', 'AdminController@adminLogin')->name('admin-login');
+});
 
-/** Homepage Charts */
-Route::get('/ajax/getLevels/{level}', 'ChartsController@getLevels');
-Route::get('/ajax/getAverages/{exam}', 'ChartsController@getAverages');
+
+Route::middleware('auth')->group(function () {
+    /** Logout */
+    Route::get('/logout', 'LoginController@logout')->name('logout');
+
+    /** View Data */
+    Route::get('/', 'ViewController@index')->name('home');
+    Route::get('/view/{data}', 'ViewController@course')->name('view-course');
+
+    /** AJAX */
+    Route::prefix('ajax')->group(function () {
+        Route::post('getTableData', 'AjaxController@getTableData');
+        Route::post('getCellData', 'AjaxController@getCellData');
+        Route::post('getSparklines', 'AjaxController@getAllSparklines');
+        Route::post('getPSATAverages', 'AjaxController@getPSATAverages');
+        Route::post('getSBACAverages', 'AjaxController@getSBACAverages');
+
+        /** Homepage Charts */
+        Route::get('getLevels/{level}', 'ChartsController@getLevels');
+        Route::get('getAverages/{exam}', 'ChartsController@getAverages');
+    });
+});
