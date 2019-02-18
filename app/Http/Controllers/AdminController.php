@@ -28,8 +28,6 @@ class AdminController extends Controller
         $user = User::where('email', $email);
         Auth::login($user->first());
 
-        Session::forget('admin-select');
-
         return redirect()->route('home');
     }
 }

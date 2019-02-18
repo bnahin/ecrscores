@@ -50,6 +50,13 @@
         </p>
     </div>
     <div class="login-box-body">
+        @if($errors->has('email'))
+            <div class="alert alert-danger">
+                @foreach ($errors->get('email') as $message)
+                    <i class="fa fa-warning"></i> <strong>{{ $message }}</strong> <br>
+                @endforeach
+            </div>
+        @endif
         <p class="login-box-msg">Select teacher to authenticate as</p>
 
         <form action="{{ route('admin-login') }}" method="post">
@@ -65,7 +72,8 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-success btn-block btn-flat"><i class="fa fa-sign-in"></i> Sign In
+            <button type="submit" class="btn btn-success btn-block btn-flat"><i class="fa fa-sign-in"></i>
+                Sign In
             </button>
         </form>
     </div>
