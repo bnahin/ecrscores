@@ -31,7 +31,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#sbac8" data-toggle="tab" aria-expanded="true">
                             SBAC 8
-                            <div class="tab-loading" id="sbac8-load">
+                            <div class="tab-loading sbac8-load">
                                 <i class="fa fa-spinner fa-spin"></i>
                             </div>
                         </a>
@@ -39,7 +39,7 @@
                     <li class=""><a href="#sbac11" data-toggle="tab" aria-expanded="false">
                             SBAC 11
                             <br>
-                            <div class="tab-loading" id="sbac11-load">
+                            <div class="tab-loading sbac11-load">
                                 <i class="fa fa-spinner fa-spin"></i>
                             </div>
                         </a>
@@ -47,7 +47,7 @@
                     <li class=""><a href="#psat11" data-toggle="tab" aria-expanded="false">
                             PSAT 11
                             <br>
-                            <div class="tab-loading" id="psat11-load">
+                            <div class="tab-loading psat11-load">
                                 <i class="fa fa-spinner fa-spin"></i>
                             </div>
                         </a>
@@ -65,7 +65,7 @@
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body">
-                                <table id="sbac8" class="table table-bordered table-striped static-table">
+                                <table id="sbac8-table" class="table table-bordered table-striped static-table">
                                     <thead>
                                     <tr>
                                         <th>Last Name</th>
@@ -74,13 +74,13 @@
                                             <span class="sparklines-box"
                                                   values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'math_scale')}}"></span>
                                             <br><span class="th-normal">Average: </span><span
-                                                id="sbac-avg-math_scale-8"><em>N/A</em></span>
+                                                id="sbac-avg-math_scale-8"></span>
                                         </th>
                                         <th>ELA Scale
                                             <span class="sparklines-box"
                                                   values="{{\App\Helpers\Helper::formatForSparkline($sbac8,'ela_scale')}}"></span>
                                             <br><span class="th-normal">Average: </span><span
-                                                id="sbac-avg-ela_scale-8"><em>N/A</em></span>
+                                                id="sbac-avg-ela_scale-8"></span>
                                         </th>
                                         <th>Reading
                                             <span class="sparklines-pie"
@@ -171,6 +171,9 @@
                                 </table>
                             </div>
                             <!-- /.box-body -->
+                            <div class="overlay sbac8-load">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
                         </div>
                     </div>
                     <!-- /.tab-pane -->
@@ -182,7 +185,7 @@
                                 <p class="help-block">Hover over charts for detailed information.</p>
                             </div>
                             <div class="box-body">
-                                <table id="sbac11" class="table table-bordered table-striped static-table">
+                                <table id="sbac11-table" class="table table-bordered table-striped static-table">
                                     <thead>
                                     <tr>
                                         <th>Last Name</th>
@@ -191,13 +194,13 @@
                                             <span class="sparklines-box"
                                                   values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'math_scale')}}"></span>
                                             <br><span class="th-normal">Average: </span><span
-                                                id="sbac-avg-math_scale-11"><em>N/A</em></span>
+                                                id="sbac-avg-math_scale-11"></span>
                                         </th>
                                         <th>ELA Scale
                                             <span class="sparklines-box"
                                                   values="{{\App\Helpers\Helper::formatForSparkline($sbac11,'ela_scale')}}"></span>
                                             <br><span class="th-normal">Average: </span><span
-                                                id="sbac-avg-ela_scale-11"><em>N/A</em></span>
+                                                id="sbac-avg-ela_scale-11"></span>
                                         </th>
                                         <th>Reading
                                             <span class="sparklines-pie"
@@ -282,6 +285,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="overlay sbac11-load">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
                         </div>
                     </div>
                     <!-- /.tab-pane -->
@@ -292,7 +298,7 @@
                                 <p class="help-block">Click on box-and-whsisker plot for detailed information.</p>
                             </div>
                             <div class="box-body">
-                                <table id="psat11" class="table table-bordered table-striped static-table">
+                                <table id="psat11-table" class="table table-bordered table-striped static-table">
                                     <input type="hidden" id="psat11-course" value="{{ $courseSerialized }}">
                                     <input type="hidden" id="past11-exam" value="psat-11">
                                     <thead>
@@ -349,6 +355,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="overlay psat11-load">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </div>
                         </div>
                     </div>
                     <!-- /.tab-pane -->
@@ -363,9 +372,9 @@
                                 <h3 class="box-title">Compare Scores</h3>
                             </div>
                             <div class="box-body">
-                                <div class="row" id="compare-container">
-                                    <div class="col-lg-6">
-                                        <div class="row compare-row">
+                                <div class="row" id="compare-container-1">
+                                    <div class="col-lg-6" id="col-1">
+                                        <div class="row compare-row sticker" id="compare-row-1">
                                             <div class="col-xs-6">
                                                 <label class="control-label" for="courseselect-1">
                                                     Course:
@@ -547,9 +556,9 @@
                                                             <p>
                                                                 <strong>Reading and Writing</strong>
                                                                 <br>
-                                                                <span id="sl-readwrite-1"><em>N/A</em></span>
+                                                                <span id="sl-readwrite-1"></span>
                                                                 <br>
-                                                                Average: <span id="avg-readwrite-1"><em>N/A</em></span>
+                                                                Average: <span id="avg-readwrite-1"></span>
                                                             </p>
                                                         </div>
                                                         <div class="col-md-4">
@@ -557,7 +566,7 @@
                                                                 <strong>Mathematics</strong>
                                                                 <br>
                                                                 <span id="sl-math-1"></span><br>
-                                                                Average: <span id="avg-math-1"><em>N/A</em></span>
+                                                                Average: <span id="avg-math-1"></span>
                                                             </p>
                                                         </div>
                                                         <div class="col-md-4">
@@ -565,7 +574,7 @@
                                                                 <strong>Total Score</strong>
                                                                 <br>
                                                                 <span id="sl-total-1"></span><br>
-                                                                Average: <span id="avg-total-1">N/A</span>
+                                                                Average: <span id="avg-total-1"></span>
                                                             </p>
                                                         </div>
                                                     </div>
@@ -615,8 +624,8 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="row compare-row">
+                                    <div class="col-lg-6" id="col-2">
+                                        <div class="row compare-row sticker" id="compare-row-2">
                                             <div class="col-xs-6">
                                                 <label class="control-label" for="courseselect-2">
                                                     Course:
@@ -813,9 +822,9 @@
                                                             <p>
                                                                 <strong>Reading and Writing</strong>
                                                                 <br>
-                                                                <span id="sl-readwrite-2"><em>N/A</em></span>
+                                                                <span id="sl-readwrite-2"></span>
                                                                 <br>
-                                                                Average: <span id="avg-readwrite-2"><em>N/A</em></span>
+                                                                Average: <span id="avg-readwrite-2"></span>
                                                             </p>
                                                         </div>
                                                         <div class="col-md-4">
@@ -823,7 +832,7 @@
                                                                 <strong>Mathematics</strong>
                                                                 <br>
                                                                 <span id="sl-math-2"></span><br>
-                                                                Average: <span id="avg-math-2"><em>N/A</em></span>
+                                                                Average: <span id="avg-math-2"></span>
                                                             </p>
                                                         </div>
                                                         <div class="col-md-4">
@@ -831,7 +840,7 @@
                                                                 <strong>Total Score</strong>
                                                                 <br>
                                                                 <span id="sl-total-2"></span><br>
-                                                                Average: <span id="avg-total-2">N/A</span>
+                                                                Average: <span id="avg-total-2"></span>
                                                             </p>
                                                         </div>
                                                     </div>

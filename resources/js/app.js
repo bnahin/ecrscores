@@ -14,6 +14,133 @@ require('./bootstrap')
  * Hover over icon (Info icon)
  */
 
+/** View Charts **/
+let ViewTableHelper = {
+  showPeekPopover: (td, grade, content) => {
+    td.popover({
+      content  : content,
+      title    : 'Result in SBAC ' + grade,
+      container: 'body',
+      placement: 'right',
+      html     : true,
+      trigger  : 'click'
+    }).popover('show')
+  }
+}
+let compareTableDt, sbacLoaded
+$(function () {
+    if ($('.static-table').length) {
+      compareTableDt = $('.static-table').DataTable({
+        drawCallback: (e) => {
+          let id = e.sTableId.split('-')[0]
+          if (location.hash === '#' + id)
+            setTimeout(() => $('#' + id + '-table').DataTable().fixedHeader.enable(), 100)
+          $('.' + id + '-load').remove()
+          let course = $('#psat11-course').val()
+          loadPSATAverages(course, $('#past11-exam').val(), null, true)
+          if (!sbacLoaded) {
+            loadSBACAverages(course)
+            sbacLoaded = true
+          }
+        },
+        lengthMenu  : [10, 20, 30, 50],
+        fixedHeader : true
+      })
+
+      function loadSparklines (destroy) {
+        if (destroy) {
+          $('.sparklines-box').sparkline('destroy')
+          $('.sparklines-line').sparkline('destroy')
+          return loadSparklines(false)
+        }
+        $('.sparklines-box').sparkline('html', {type: 'box'})
+        $('.sparklines-pie').sparkline('html', {
+          type               : 'pie',
+          sliceColors        : ['gray', 'red', 'yellow', 'lightgreen', 'darkgreen'],
+          tooltipFormat      : '{{offset:offset}} ({{percent.1}}%)',
+          tooltipValueLookups: {
+            'offset': {
+              0: 'No Score',
+              1: 'Standard Not Met',
+              2: 'Near Standard',
+              3: 'Standard Met',
+              4: 'Standard Exceeded'
+            }
+          },
+        })
+      }
+
+      loadSparklines(false)
+      compareTableDt.fixedHeader.disable()
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        loadSparklines(true)
+        compareTableDt.fixedHeader.disable()
+        let target = $('#' + e.target.hash.substr(1) + '-table')
+        //Prevent other tables from floating
+        target.DataTable().fixedHeader.enable()
+      })
+
+      //Popover Ajax
+      $('.static-table').find('td').on('click', function (e) {
+        let td = $(this)
+        let grade  = $(this).data('grade'),
+            ssid   = $(this).data('ssid'),
+            fields = $(this).data('fields').split(',')
+        // ViewTableHelper.showPeekPopover(td, grade, 'Loading...')
+        $.ajax({
+          url    : '/ajax/getCellData',
+          data   : {
+            grade : grade,
+            ssid  : ssid,
+            fields: fields
+          },
+          type   : 'POST',
+          success: result => {
+            ViewTableHelper.showPeekPopover(td, grade, result)
+          },
+          error  : () => ViewTableHelper.showPeekPopover(td, grade, '<em>Error - No Data</em>')
+        })
+      })
+    }
+  }
+)
+
+/** Functions **/
+function loadPSATAverages (c, e, col, th) {
+  $.post('/ajax/getPSATAverages', {
+    course: c,
+    exam  : e
+  }, function (result) {
+    for (let field in result) {
+      if (result.hasOwnProperty(field)) {
+        let selector = '#'
+        if (th) selector += 'th-'
+        selector += 'avg-' + field
+        if (!th && col) selector += '-' + col
+
+        $(selector).html(result[field])
+      }
+    }
+  })
+}
+
+function loadSBACAverages (c) {
+  $.post('/ajax/getSBACAverages', {
+    course: c
+  }, function (result) {
+    for (let grade in result) {
+      if (result.hasOwnProperty(grade)) {
+        for (let field in result[grade]) {
+          if (result[grade].hasOwnProperty(field)) {
+            let selector = '#sbac-avg-' + field + '-' + grade
+            $(selector).html(result[grade][field])
+          }
+        }
+      }
+    }
+  })
+}
+
 /** Compare Tab **/
 let CompareTableHelper = {
   cellToColor: (header) => {
@@ -32,22 +159,8 @@ let CompareTableHelper = {
 }
 $(function () {
   if ($('.compare-table').length) {
-    let dataTable, sbacLoaded = false
+    let dataTable
     $('.compare-select').val(null).trigger('change')
-    //TODO Custom Column Visibility
-    $('.static-table').DataTable({
-      drawCallback: (e) => {
-        $('#' + e.sTableId + '-load').remove()
-        let course = $('#psat11-course').val()
-        loadPSATAverages(course, $('#past11-exam').val(), null, true)
-        if (!sbacLoaded) {
-          loadSBACAverages(course)
-          sbacLoaded = true
-        }
-      },
-      lengthMenu  : [10, 20, 30, 50],
-      fixedHeader : true
-    })
     $('.select2-course').select2({
       templateSelection: course => course.element.dataset.label
     }).on('select2:select', function (e) {
@@ -189,115 +302,11 @@ $(function () {
       }
     }
 
-    /** Averages **/
-    function loadPSATAverages (c, e, col, th) {
-      $.post('/ajax/getPSATAverages', {
-        course: c,
-        exam  : e
-      }, function (result) {
-        for (let field in result) {
-          if (result.hasOwnProperty(field)) {
-            let selector = '#'
-            if (th) selector += 'th-'
-            selector += 'avg-' + field
-            if (!th && col) selector += '-' + col
-
-            $(selector).html(result[field])
-          }
-        }
-      })
-    }
-
-    function loadSBACAverages (c) {
-      $.post('/ajax/getSBACAverages', {
-        course: c
-      }, function (result) {
-        for (let grade in result) {
-          if (result.hasOwnProperty(grade)) {
-            for (let field in result[grade]) {
-              if (result[grade].hasOwnProperty(field)) {
-                let selector = '#sbac-avg-' + field + '-' + grade
-                $(selector).html(result[grade][field])
-              }
-            }
-          }
-        }
-      })
-    }
-
     /** Filter Boxes **/
     $('.filter-box').find('input:checkbox').change(function () {
       let table = $('#' + $(this).parents('.filter-box-container').data('controls'))
       table.DataTable().column($(this).val() + ':name').visible($(this).prop('checked'))
       table.DataTable().columns.adjust().draw()
-    })
-
-  }
-})
-
-/** View Charts **/
-let ViewTableHelper = {
-  showPeekPopover: (td, grade, content) => {
-    td.popover({
-      content  : content,
-      title    : 'Result in SBAC ' + grade,
-      container: 'body',
-      placement: 'right',
-      html     : true,
-      trigger  : 'click'
-    }).popover('show')
-  }
-}
-$(function () {
-  if ($('.static-table').length) {
-    function loadSparklines (destroy) {
-      if (destroy) {
-        $('.sparklines-box').sparkline('destroy')
-        $('.sparklines-line').sparkline('destroy')
-        return loadSparklines(false)
-      }
-      $('.sparklines-box').sparkline('html', {type: 'box'})
-      $('.sparklines-pie').sparkline('html', {
-        type               : 'pie',
-        sliceColors        : ['gray', 'red', 'yellow', 'lightgreen', 'darkgreen'],
-        tooltipFormat      : '{{offset:offset}} ({{percent.1}}%)',
-        tooltipValueLookups: {
-          'offset': {
-            0: 'No Score',
-            1: 'Standard Not Met',
-            2: 'Near Standard',
-            3: 'Standard Met',
-            4: 'Standard Exceeded'
-          }
-        },
-      })
-    }
-
-    loadSparklines(false)
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-      loadSparklines(true)
-    })
-
-    //Popover Ajax
-    $('.static-table').find('td').on('click', function (e) {
-      let td = $(this)
-      let grade  = $(this).data('grade'),
-          ssid   = $(this).data('ssid'),
-          fields = $(this).data('fields').split(',')
-      // ViewTableHelper.showPeekPopover(td, grade, 'Loading...')
-      $.ajax({
-        url    : '/ajax/getCellData',
-        data   : {
-          grade : grade,
-          ssid  : ssid,
-          fields: fields
-        },
-        type   : 'POST',
-        success: result => {
-          ViewTableHelper.showPeekPopover(td, grade, result)
-        },
-        error  : () => ViewTableHelper.showPeekPopover(td, grade, '<em>Error - No Data</em>')
-      })
     })
   }
 })
