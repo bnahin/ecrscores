@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Cache;
 
 class Helper
 {
+    /**
+     * Get full year.
+     * ex. 2018-19
+     * @param string $shortYear
+     *
+     * @return string
+     */
     public static function getFullYearString(string $shortYear): string
     {
         $year = explode('-', $shortYear)[0];
@@ -27,22 +34,37 @@ class Helper
         return $prefix . $shortYear;
     }
 
+    /**
+     * @param string $data
+     *
+     * @return string
+     */
     public static function base64url_encode(string $data): string
     {
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
 
+    /**
+     * @param string $data
+     *
+     * @return string
+     */
     public static function base64url_decode(string $data): string
     {
         return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
     }
 
+    /**
+     * Check if syncing
+     * @return bool
+     */
     public static function inSync(): bool
     {
         return Cache::has('datasync');
     }
 
     /**
+     * Format Collection for Sparkline value string.
      * @param \Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection $collection
      * @param string                                                                  $field
      *

@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Auth;
 final class CourseHelper
 {
 
+    /**
+     * Check course payload
+     * @param string $data
+     *
+     * @return bool
+     */
     public static function validCourseData(string $data): bool
     {
         $pieces = explode('.', Helper::base64url_decode($data));
@@ -24,6 +30,12 @@ final class CourseHelper
             && filter_var($yearPieces[1], FILTER_VALIDATE_INT);
     }
 
+    /**
+     * @param string $year
+     * @param string $course
+     *
+     * @return array
+     */
     public static function getScoresFromCourse(string $year, string $course): array
     {
         $data = array();

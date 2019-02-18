@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Auth;
 
 final class SBACDataHelper
 {
+    /**
+     * @param int $level
+     *
+     * @return string
+     */
     public static function getLevelFromInt(int $level): string
     {
         switch ($level) {
@@ -29,6 +34,11 @@ final class SBACDataHelper
         }
     }
 
+    /**
+     * @param string $level
+     *
+     * @return int
+     */
     public static function getIntFromLevel(string $level): int
     {
         switch ($level) {
@@ -45,6 +55,11 @@ final class SBACDataHelper
         }
     }
 
+    /**
+     * @param int $level
+     *
+     * @return string
+     */
     public static function getColorFromInt(int $level): string
     {
         switch ($level) {

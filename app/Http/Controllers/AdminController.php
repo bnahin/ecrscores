@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
+    /**
+     * Show admin select page.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $teachers = User::orderBy('last_name', 'DESC')->get();
@@ -18,6 +22,12 @@ class AdminController extends Controller
         return view('admin-select', compact('teachers'));
     }
 
+    /**
+     * Authenticate as teacher.
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function adminLogin(Request $request)
     {
         $request->validate([

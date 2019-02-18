@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 
 final class AuthHelper
 {
+    /**
+     * @return int
+     */
     public static function countStudents()
     {
         return Auth::user()->getStudents();

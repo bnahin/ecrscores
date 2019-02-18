@@ -15,6 +15,12 @@ use Illuminate\Support\Facades\DB;
 
 class AjaxController extends Controller
 {
+    /**
+     * Get compare table data.
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
     public function getTableData(Request $request)
     {
         //Get data according to course, exam
@@ -57,6 +63,12 @@ class AjaxController extends Controller
             });
     }
 
+    /**
+     * Get SBAC Previous/Next year data
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Support\Collection|string
+     */
     public function getCellData(Request $request)
     {
         $request->validate([
@@ -71,6 +83,12 @@ class AjaxController extends Controller
         return SBACDataHelper::getCellData($request->grade, $request->ssid, $request->fields);
     }
 
+    /**
+     * Get single sparkline.
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return string
+     */
     public function getSparkline(Request $request)
     {
         $request->validate([
@@ -109,6 +127,12 @@ class AjaxController extends Controller
         return Helper::formatForSparkline($result->get(), $field);
     }
 
+    /**
+     * Get all table sparklines.
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
     public function getAllSparklines(Request $request)
     {
         $request->validate([

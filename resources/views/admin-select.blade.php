@@ -71,12 +71,55 @@
                         </option>
                     @endforeach
                 </select>
+                <p class="help-block">You can only select from the {{ count($teachers) }} teachers that have logged in
+                    after the last SBAC score
+                    sync.</p>
             </div>
             <button type="submit" class="btn btn-success btn-block btn-flat"><i class="fa fa-sign-in"></i>
                 Sign In
             </button>
         </form>
     </div>
+    <!-- Quick Stats -->
+    <div class="box-footer text-center">
+        <h5>School Statistics</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>SBAC ELA</strong>
+                <br>
+                <span class="sparklines-box"
+                      values="{{ \App\Helpers\AdminChartsHelper::getSparkline("sbac","ela_scale") }}"></span>
+                <br>
+                <span class="sparklines-pie"
+                      values="{{ \App\Helpers\AdminChartsHelper::getSparkline("sbac","ela_level") }}"></span>
+            </div>
+            <div class="col-md-6">
+                <strong>SBAC Math</strong>
+                <br>
+                <span class="sparklines-box"
+                      values="{{ \App\Helpers\AdminChartsHelper::getSparkline("sbac","math_scale") }}"></span>
+                <br>
+                <span class="sparklines-pie"
+                      values="{{ \App\Helpers\AdminChartsHelper::getSparkline("sbac","math_level") }}"></span>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>PSAT Reading</strong>
+                <br>
+                <span class="sparklines-box"
+                      values="{{ \App\Helpers\AdminChartsHelper::getSparkline("psat","readwrite") }}"></span>
+            </div>
+            <div class="col-md-6">
+                <strong>PSAT Math</strong>
+                <br>
+                <span class="sparklines-box"
+                      values="{{ \App\Helpers\AdminChartsHelper::getSparkline("psat","math") }}"></span>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
     <div class="box-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
@@ -103,6 +146,9 @@
 
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }} "></script>
+
+<!-- Sparkline Graphs -->
+<script src="{{ asset('bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
 
 <!-- App JS -->
 <script src="{{ asset('js/app.js') }}"></script>

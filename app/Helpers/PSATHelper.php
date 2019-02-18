@@ -77,6 +77,13 @@ final class PSATHelper
         return $percentile;
     }
 
+    /**
+     * Get pre-calculated percentile.
+     * @param \App\PSAT $psat
+     * @param string    $type
+     *
+     * @return string
+     */
     public static function getPercentile(PSAT $psat, string $type): string
     {
         $model = $psat->percentiles()->where('type', $type);
@@ -93,6 +100,7 @@ final class PSATHelper
     }
 
     /**
+     * Calculate average total score.
      * @return string
      */
     public static function calculateAverageTotal(): string

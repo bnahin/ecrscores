@@ -9,11 +9,21 @@ use Illuminate\Support\Facades\Auth;
 
 class ViewController extends Controller
 {
+    /**
+     * View homepage.
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('home');
     }
 
+    /**
+     * View course.
+     * @param string $data
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function course(string $data)
     {
         if (!CourseHelper::validCourseData($data)) {

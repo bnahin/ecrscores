@@ -47,29 +47,6 @@ $(function () {
         fixedHeader : true
       })
 
-      function loadSparklines (destroy) {
-        if (destroy) {
-          $('.sparklines-box').sparkline('destroy')
-          $('.sparklines-line').sparkline('destroy')
-          return loadSparklines(false)
-        }
-        $('.sparklines-box').sparkline('html', {type: 'box'})
-        $('.sparklines-pie').sparkline('html', {
-          type               : 'pie',
-          sliceColors        : ['gray', 'red', 'yellow', 'lightgreen', 'darkgreen'],
-          tooltipFormat      : '{{offset:offset}} ({{percent.1}}%)',
-          tooltipValueLookups: {
-            'offset': {
-              0: 'No Score',
-              1: 'Standard Not Met',
-              2: 'Near Standard',
-              3: 'Standard Met',
-              4: 'Standard Exceeded'
-            }
-          },
-        })
-      }
-
       loadSparklines(false)
       compareTableDt.fixedHeader.disable()
       $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -138,6 +115,29 @@ function loadSBACAverages (c) {
         }
       }
     }
+  })
+}
+
+function loadSparklines (destroy) {
+  if (destroy) {
+    $('.sparklines-box').sparkline('destroy')
+    $('.sparklines-line').sparkline('destroy')
+    return loadSparklines(false)
+  }
+  $('.sparklines-box').sparkline('html', {type: 'box'})
+  $('.sparklines-pie').sparkline('html', {
+    type               : 'pie',
+    sliceColors        : ['gray', 'red', 'yellow', 'lightgreen', 'darkgreen'],
+    tooltipFormat      : '{{offset:offset}} ({{percent.1}}%)',
+    tooltipValueLookups: {
+      'offset': {
+        0: 'No Score',
+        1: 'Standard Not Met',
+        2: 'Near Standard',
+        3: 'Standard Met',
+        4: 'Standard Exceeded'
+      }
+    },
   })
 }
 
@@ -504,5 +504,7 @@ $(function () {
   if ($('#admin-select').length) {
     let input = $('#admin-select-email')
     input.select2()
+
+    loadSparklines(false)
   }
 })
