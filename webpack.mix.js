@@ -14,3 +14,7 @@ const mix = require('laravel-mix')
 mix.js('resources/js/app.js', 'public/js')
   .sass('resources/sass/app.scss', 'public/css')
   .sass('resources/themes/dataTables.bootstrap.scss', 'public/dist/themes')
+
+if (mix.inProduction()) {
+  mix.version()
+}

@@ -16,3 +16,6 @@ php artisan cache:clear #Clear cache
 
 composer install
 composer dump-autoload
+
+cd public && bower install
+cd ../
