@@ -24,9 +24,10 @@ class ViewController extends Controller
         $year = $pieces[0];
         $course = $pieces[1];
         $courseSerialized = $data;
+        $sidebarYear = $year;
 
         $data = CourseHelper::getScoresFromCourse($year, $course);
 
-        return view('view', compact('data', 'course', 'year', 'courseSerialized'));
+        return view('view', compact('data', 'course', 'year', 'sidebarYear', 'courseSerialized'));
     }
 }

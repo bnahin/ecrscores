@@ -19,6 +19,11 @@
   height: 105px;
 }
 
+/** Sidebar **/
+.treeview-menu > li > a.active {
+  color: white !important;
+}
+
 /** Sync Page **/
 #sync-container {
   background-color: white;
