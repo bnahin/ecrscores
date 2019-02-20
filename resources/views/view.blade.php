@@ -372,7 +372,7 @@
                                 <h3 class="box-title">Compare Scores</h3>
                             </div>
                             <div class="box-body">
-                                <div class="row" id="compare-container-1">
+                                <div class="row" id="compare-container">
                                     <div class="col-lg-6" id="col-1">
                                         <div class="row compare-row sticker" id="compare-row-1">
                                             <div class="col-xs-6">
