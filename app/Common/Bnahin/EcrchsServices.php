@@ -55,7 +55,8 @@ class EcrchsServices
             $this->user->family_name = $user['family_name'] ?? explode(" ", $user->name)[count($name) - 1];
         }
 
-        if (!in_array($domain, ["ecrchs.net"]) && $user->email !== "115602@ecrchs.org") {
+        if (!in_array($domain, ["ecrchs.net"]) &&
+            !in_array(explode('@', $user->email)[0], ["115602", "116089"])) {
             return abort(403, "Not a member of the ECRCHS organization or forbidden from using the application");
         }
 

@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="{{ asset('/dist/css/skins/skin-blue.min.css') }}">
 <!-- Styles -->
 @stack('styles')
-<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
