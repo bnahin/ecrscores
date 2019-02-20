@@ -343,7 +343,7 @@
                                                     <div class="col-xs-4">
                                                         <strong rel="tooltip"
                                                                 title="Among your students across all periods.">Students</strong><br>
-                                                        {!! \App\Helpers\PSATHelper::getPercentile($score, 'students'). "%" !!}
+                                                        {!! \App\Helpers\PSATHelper::getPercentile($score, 'teacher'). "%" !!}
                                                     </div>
                                                     <div class="col-xs-4">
                                                         <strong rel="tooltip" title="Among students in all classes.">School</strong><br>

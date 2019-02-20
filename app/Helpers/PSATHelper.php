@@ -79,6 +79,7 @@ final class PSATHelper
 
     /**
      * Get pre-calculated percentile.
+     *
      * @param \App\PSAT $psat
      * @param string    $type
      *
@@ -90,8 +91,8 @@ final class PSATHelper
         if (!$model->exists()) {
             return "<em>N/A</em>";
         }
-        $percent = $model->pluck('percent');
-        if (!$percent) {
+        $percent = $model->get('percent');
+        if (!$percent || $percent === null) {
             return "<em>N/A</em>";
         }
 
