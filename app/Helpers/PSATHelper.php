@@ -91,7 +91,7 @@ final class PSATHelper
         if (!$model->exists()) {
             return "<em>N/A</em>";
         }
-        $percent = $model->get('percent');
+        $percent = $model->first()->percent;
         if (!$percent || $percent === null) {
             return "<em>N/A</em>";
         }
