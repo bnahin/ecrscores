@@ -56,9 +56,53 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="sbac8">
-
                         <div class="box box-success">
                             <div class="box-header with-border">
+                                <div class="legend-box-container pull-right">
+                                    <div class="box legend-box">
+                                        <a data-toggle="collapse"
+                                           href="#cl1" aria-expanded="false"
+                                           aria-controls="collapseExample" class="accordion-toggle collapsed">
+                                            <div class="box-header">
+                                                <h4 class="text-center">Category Level Legend</h4>
+                                            </div>
+                                        </a>
+                                        <div class="box-body collapse" id="cl1" style="padding-top:0;">
+                                            <h5 class="text-center">English and Language Arts Standards</h5>
+                                            <div class="row text-center">
+                                                <div class="col-xs-3">
+                                                    <p class="text-danger">Not Met <br><strong>2288</strong> - 2486</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-yellow">Nearly Met <br> 2487 - 2566</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-green">Standard Met <br>2567 - 2667</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-success">Exceeded
+                                                        <br>2668 - <strong>2769</strong></p>
+                                                </div>
+                                            </div>
+                                            <h5 class="text-center">Mathematics Standards</h5>
+                                            <div class="row text-center">
+                                                <div class="col-xs-3">
+                                                    <p class="text-danger">Not Met <br><strong>2265</strong> - 2503</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-yellow">Nearly Met <br> 2504 - 2585</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-green">Standard Met <br>2586 - 2652</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-success">Exceeded
+                                                        <br>2653 - <strong>2802</strong></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <h3 class="box-title">SBAC Grade 8 <br></h3>
                                 <p class="help-block">Click on table cell to view data for Grade 11.</p>
                                 <p class="help-block">Hover over charts for detailed information.</p>
@@ -180,6 +224,51 @@
                     <div class="tab-pane" id="sbac11">
                         <div class="box box-success">
                             <div class="box-header with-border">
+                                <div class="legend-box-container pull-right">
+                                    <div class="box legend-box">
+                                        <a data-toggle="collapse"
+                                           href="#cl2" aria-expanded="false"
+                                           aria-controls="collapseExample" class="accordion-toggle collapsed">
+                                            <div class="box-header">
+                                                <h4 class="text-center">Category Level Legend</h4>
+                                            </div>
+                                        </a>
+                                        <div class="box-body collapse" id="cl2" style="padding-top:0;">
+                                            <h5 class="text-center">English and Language Arts Standards</h5>
+                                            <div class="row text-center">
+                                                <div class="col-xs-3">
+                                                    <p class="text-danger">Not Met <br><strong>2299</strong> - 2492</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-yellow">Nearly Met <br> 2493 - 2582</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-green">Standard Met <br>2583 - 2681</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-success">Exceeded
+                                                        <br>2682 - <strong>2795</strong></p>
+                                                </div>
+                                            </div>
+                                            <h5 class="text-center">Mathematics Standards</h5>
+                                            <div class="row text-center">
+                                                <div class="col-xs-3">
+                                                    <p class="text-danger">Not Met <br><strong>2280</strong> - 2542</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-yellow">Nearly Met <br> 2543 - 2627</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-green">Standard Met <br>2628 - 2717</p>
+                                                </div>
+                                                <div class="col-xs-3">
+                                                    <p class="text-success">Exceeded
+                                                        <br>2718 - <strong>2862</strong></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <h3 class="box-title">SBAC Grade 11</h3>
                                 <p class="help-block">Click on table cell to view data for Grade 8.</p>
                                 <p class="help-block">Hover over charts for detailed information.</p>
@@ -346,7 +435,8 @@
                                                         {!! \App\Helpers\PSATHelper::getPercentile($score, 'teacher'). "%" !!}
                                                     </div>
                                                     <div class="col-xs-4">
-                                                        <strong rel="tooltip" title="Among students in all classes.">School</strong><br>
+                                                        <strong rel="tooltip"
+                                                                title="Among students in all classes.">School</strong><br>
                                                         {!! \App\Helpers\PSATHelper::getPercentile($score, 'school'). "%" !!}
                                                     </div>
                                                 </div>
@@ -499,7 +589,8 @@
                                                                        value="concepts"
                                                                        id="concepts-{{$id}}">
                                                                 <label class="form-check-label" for="concepts-{{$id}}">
-                                                                    <span rel="tooltip" title="Concepts/Procedures">Concepts</span>
+                                                                <span rel="tooltip"
+                                                                      title="Concepts/Procedures">Concepts</span>
                                                                     <span id="sl-concepts-1"></span>
                                                                 </label>
                                                             </div>

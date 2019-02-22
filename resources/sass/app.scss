@@ -50,21 +50,52 @@
     border-right: 2px solid #ccc;
   }
 
-  .filter-box {
-    margin-top: 5px;
-    background-color: #f8f8f8;
-
-    h4 {
-      margin-top: 0;
-    }
-
-    label {
-      font-weight: initial;
-    }
-  }
-
   .column-box-container p {
     text-align: center;
+  }
+}
+
+
+.filter-box, .legend-box {
+  margin-top: 5px;
+  background-color: #f8f8f8;
+
+  h4 {
+    margin-top: 0;
+  }
+
+  label {
+    font-weight: initial;
+  }
+}
+
+.legend-box {
+  width: 500px;
+}
+
+.legend-box-container {
+  .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings'; /* essential for enabling glyphicon */
+    content: "\e114"; /* adjust as needed, taken from bootstrap.css */
+    color: grey; /* adjust as needed */
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px 18px 12px 12px;
+  }
+
+  .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080"; /* adjust as needed, taken from bootstrap.css */
+  }
+
+  .box-body {
+    padding-top: 0;
+  }
+
+  h4 {
+    margin-bottom: 0;
   }
 }
 
