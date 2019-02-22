@@ -418,9 +418,10 @@
                                         <tr>
                                             <td width="15%">{{ $score->first_name }}</td>
                                             <td width="15%">{{ $score->last_name }}</td>
-                                            <td width="10%">{{ $score->readwrite }}</td>
-                                            <td width="10%">{{ $score->math }}</td>
-                                            <td class="success" width="15%">{{ $score->total }}</td>
+                                            <td width="10%">{!! $score->readwrite ?? "<em>No Score</em>" !!}</td>
+                                            <td width="10%">{!! $score->math ?? "<em>No Score</em>" !!}</td>
+                                            <td class="success"
+                                                width="15%">{!! $score->total ?? "<em>No Score</em>" !!}</td>
                                             <td>
                                                 <div class="row">
                                                     <div class="col-xs-4"><strong rel="tooltip"
@@ -707,7 +708,6 @@
                                                     <th width="10%">Reading/Writing</th>
                                                     <th width="10%">Mathematics</th>
                                                     <th class="success" width="15%">Total</th>
-                                                    <th>Percentiles</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>

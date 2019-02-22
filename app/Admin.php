@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin whereLname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Admin whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read mixed $full_name
  */
 class Admin extends Model
 {
