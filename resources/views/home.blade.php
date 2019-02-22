@@ -7,6 +7,11 @@
             integrity="sha256-MZo5XY1Ah7Z2Aui4/alkfeiq3CopMdV/bbkc/Sh41+s=" crossorigin="anonymous"></script>
 @endpush
 
+@php
+    $psatYr = \App\Helpers\Helper::getFullYearString(\App\PSAT::max('year'));
+    $sbacYr = \App\Helpers\Helper::getFullYearString(\App\SBAC::max('year'));
+@endphp
+
 @section('content')
     <p>Welcome to the ECR Scores interface. To begin analyzing your students' scores, select an academic year and course
         on the left sidebar.</p>
@@ -20,6 +25,8 @@
                     <span class="info-box-text">Average PSAT Total</span>
                     <span
                         class="info-box-number">{!! \App\Helpers\PSATHelper::calculateAverageTotal() !!}</span>
+                    <br>
+                    <small><em>{{ $psatYr }}</em></small>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -33,7 +40,8 @@
                     <span class="info-box-text">Average SBAC Math</span>
                     <span
                         class="info-box-number">{!! \App\Helpers\SBACDataHelper::calculateAverageMath() !!}</span>
-
+                    <br>
+                    <small><em>{{ $sbacYr }}</em></small>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -51,6 +59,8 @@
                     <span class="info-box-text">Average SBAC ELA</span>
                     <span
                         class="info-box-number">{!! \App\Helpers\SBACDataHelper::calculateAverageEla() !!}</span>
+                    <br>
+                    <small><em>{{ $sbacYr }}</em></small>
                 </div>
                 <!-- /.info-box-content -->
             </div>
@@ -64,6 +74,8 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Students</span>
                     <span class="info-box-number">{{ number_format(\App\Helpers\AuthHelper::countStudents()) }}</span>
+                    <br>
+                    <small><em>{{ Auth::user()->getYearsCount() }} Years</em></small>
                 </div>
                 <!-- /.info-box-content -->
             </div>

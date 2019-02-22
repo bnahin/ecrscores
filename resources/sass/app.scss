@@ -44,7 +44,6 @@
 }
 
 /** View Page **/
-
 #compare-container {
   div.col-lg-6:first-child {
     border-right: 2px solid #ccc;
@@ -54,7 +53,6 @@
     text-align: center;
   }
 }
-
 
 .filter-box, .legend-box {
   margin-top: 5px;
@@ -125,4 +123,8 @@
 /** Admin Page **/
 .login-box {
   margin: 3% auto;
+}
+
+.info-box {
+  height: 90px !important;
 }

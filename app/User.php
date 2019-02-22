@@ -111,6 +111,11 @@ class User extends Authenticatable
         return $years;
     }
 
+    public function getYearsCount()
+    {
+        return $this->getYears()->count();
+    }
+
     /**
      * Get combined collection of courses that have data
      *
