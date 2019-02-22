@@ -12,6 +12,7 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
+        Admin::truncate();
         $admins = [
             [
                 'fname' => 'Blake',

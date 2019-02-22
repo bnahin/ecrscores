@@ -30,7 +30,7 @@ final class SBACDataHelper
             case 3:
                 return "Standard Exceeded";
             default:
-                return "<em>No Score</em>";
+                return "<em>Use Legend</em>";
         }
     }
 

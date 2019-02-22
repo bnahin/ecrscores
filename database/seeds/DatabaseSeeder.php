@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         //Sync immediately
         //Artisan::call('scores:sync');
-        $this->call(AdminTableSeeder::class);
+        //$this->call(AdminTableSeeder::class);
+        $this->call(ScoreRangeSeeder::class);
     }
 }
