@@ -38,6 +38,9 @@ class SBACImport implements ToModel
             //Header row
             return null;
         }
+        if (str_contains($row[3], ["REG ROOM", "SERVICE", "TUTOR", "HOME"])) {
+            return null;
+        }
 
         //Split name
         $pieces = explode(',', $row[1]);
